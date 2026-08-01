@@ -1,0 +1,85 @@
+// import React from 'react'
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+
+const Account = () => {
+  const pathname = useParams();
+  const navigate = useNavigate()
+  const links = [
+    "My Orders",
+    "Shipping Address",
+    "Payment Method",
+    "Account Setting",
+  ];
+  const token = localStorage.getItem('token')
+  if (!token) {
+    toast.error('Token not providedd')
+    navigate('/signup')
+  }
+  
+  return (
+    <>
+      <Navbar />
+      <section className="bg-white/60 min-h-screen py-40 px-40">
+        <h2 className="text-4xl font-bold">My Account</h2>
+        <div className="md:flex space-x-6 space-y-6 my-12">
+          <div className="space-y-10">
+            <div className="h-60 w-full md:w-60 bg-white shadow-lg rounded-2xl">
+              <ul className="p-6">
+                {links.map((link) => {
+                  const slug = link.toLocaleLowerCase().replace(/\s+/g, "-");
+                  const active = pathname === `${slug}`;
+                  return (
+                    <li key={link}>
+                      <button className="w-full text-left hover:bg-blue-100 p-2 rounded-lg">
+                        <Link
+                          name={link}
+                          to={`${slug}`}
+                          className={`text-lg ${active ? "" : ""}`}
+                        >
+                          {link}
+                        </Link>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
+          <div className="space-y-6">
+            <div className="bg-white h-60 md:w-220 rounded-lg shadow-lg p-6">
+              <div className="flex justify-between">
+                <h2 className="text-lg font-bold">Order #12345</h2>
+                <p className="bg-green-200 text-green-800 px-2 rounded-full">
+                  Delivered
+                </p>
+              </div>
+              <p className="text-gray-500 text-xs">Placed on March 15, 2024</p>
+              <div className="flex space-x-6 mt-6">
+                <div>
+                  <img src="" alt="product" />
+                </div>
+                <div>
+                  <h4 className="font-semibold">MacBook 16 Pro"</h4>
+                  <p className="text-gray-500 text-sm">Quanlity: 1</p>
+                  <p className="text-blue-700 text-sm font-bold py-3">
+                    $2, 499
+                  </p>
+                </div>
+              </div>
+                <div className="flex justify-between">
+                  <button className="text-center w-[49%] border rounded-lg text-white text-sm bg-violet-700 p-2 cursor-pointer">Track Orders</button>
+                  <button className="text-center w-[49%] rounded-lg text-sm border-violet-700 border text-violet-700 cursor-pointer">View Details</button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <Footer />
+    </>
+  );
+};
+
+export default Account;
