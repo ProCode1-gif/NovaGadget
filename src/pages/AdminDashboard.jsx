@@ -1,4 +1,5 @@
 // import React from 'react'
+import { ShoppingCart, Users } from "lucide-react";
 import AdminSideBar from "../components/AdminSideBar";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
@@ -75,9 +76,7 @@ const Admin = () => {
             </div>
             <div className="bg-white w-[23%] p-6 rounded-lg shadow">
               <div className="flex justify-between space-y-4">
-                <span className="bg-green-100 text-green-600 font-bold text-2xl p-2 rounded-lg">
-                  🛒
-                </span>
+                  <ShoppingCart className="bg-green-100 text-green-600 font-bold text-2xl p-2 rounded-lg" />
                 <span className="text-green-600 font-bold text-sm p-2">
                   +8.2%
                 </span>
@@ -87,9 +86,7 @@ const Admin = () => {
             </div>
             <div className="bg-white w-[23%] p-6 rounded-lg shadow">
               <div className="flex justify-between space-y-4">
-                <span className="bg-purple-100 text-purple-600 font-bold text-2xl p-2 rounded-lg">
-                  👨🏻‍🤝‍👨🏻
-                </span>
+                  <Users className="bg-purple-100 text-purple-600 font-bold text-2xl p-2 rounded-lg" />
                 <span className="text-green-600 font-bold text-sm p-2">
                   +15.3%
                 </span>

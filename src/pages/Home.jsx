@@ -2,6 +2,10 @@
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
+import Phone from "../assets/images/samsung.jpg";
+import Laptop from "../assets/images/laptop.png";
+import Gadgets from "../assets/images/gadgets.jpg";
+import Accessories from "../assets/images/accessories.png";
 
 const Home = () => {
   return (
@@ -30,17 +34,17 @@ const Home = () => {
             </div>
           </div>
           <div className="border">
-            <img src="" alt="product" className="w-150 h-100 rounded-lg" />
+            <img src={Gadgets} alt="gadgets" className="w-150 h-100 rounded-lg" />
           </div>
         </div>
         <div className="bg-[#F9FAFB] py-20 px-10">
           <h2 className="text-4xl font-bold text-center">Shop by Category</h2>
-          <div className="my-20 flex space-x-6 space-y-6">
+          <div className="my-20 flex justify-center space-x-6 space-y-6">
             <div className="bg-white rounded-lg shadow-md">
               <img
-                src=""
+                src={Laptop}
                 alt="laptop"
-                className="rounded-lg hover:scale-102 border w-full h-60"
+                className="w-full h-100 rounded-lg hover:scale-102"
               />
               <div className="p-6">
                 <h3 className="text-2xl font-bold mb-2">Laptops</h3>
@@ -56,9 +60,9 @@ const Home = () => {
             </div>
             <div className="bg-white rounded-lg shadow-md">
               <img
-                src=""
+                src={Phone}
                 alt="smartphones"
-                className="rounded-lg hover:scale-102 border w-full h-60"
+                className="rounded-lg hover:scale-102 w-full h-100"
               />
               <div className="p-6">
                 <h3 className="text-2xl font-bold mb-2">Smartphones</h3>
@@ -74,9 +78,9 @@ const Home = () => {
             </div>
             <div className="bg-white rounded-lg shadow-md">
               <img
-                src=""
+                src={Accessories}
                 alt="accessories"
-                className="rounded-lg hover:scale-102 border w-full h-60"
+                className="rounded-lg hover:scale-102 w-full h-100"
               />
               <div className="p-6">
                 <h3 className="text-2xl font-bold mb-2">Accessories</h3>
@@ -99,7 +103,7 @@ const Home = () => {
           <div className="flex space-y-6 justify-between pt-20">
             <div className="">
               <div>
-                <img src="" alt="shipping" className="w-55 h-42 rounded-full" />
+                <img src="./assets/shipping.jpg" alt="shipping" className="w-55 h-42 rounded-full" />
                 <div>
                   <h3 className="text-center text-2xl font-semibold">
                     Free Shiping

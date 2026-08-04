@@ -1,5 +1,6 @@
 // import React from 'react'
 import { Link } from "react-router-dom";
+import { FaInstagram, FaFacebook, FaTwitter } from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -15,13 +16,13 @@ const Footer = () => {
           <h3 className="text-lg text-white font-bold">Shop</h3>
           <ul className="mt-6 space-y-2">
             <li>
-              <Link to={'laptops'} className="text-lg text-gray-400">Laptop</Link>
+              <Link to={'/shop/laptops'} className="text-lg text-gray-400">Laptop</Link>
             </li>
             <li>
-              <Link to={'smartphones'} className="text-lg text-gray-400">Smartphones</Link>
+              <Link to={'/shop/smartphones'} className="text-lg text-gray-400">Smartphones</Link>
             </li>
             <li>
-              <Link to={'accessories'} className="text-lg text-gray-400">Accessories</Link>
+              <Link to={'/shop/accessories'} className="text-lg text-gray-400">Accessories</Link>
             </li>
           </ul>
         </div>
@@ -29,13 +30,13 @@ const Footer = () => {
           <h3 className="text-lg text-white font-bold">Support</h3>
           <ul className="mt-6 space-y-2">
             <li>
-              <Link className="text-lg text-gray-400">Contact Us</Link>
+              <Link to={"/contact"} className="text-lg text-gray-400">Contact Us</Link>
             </li>
             <li>
-              <Link className="text-lg text-gray-400">Shippng Info</Link>
+              <Link to={"/shippingAddress"} className="text-lg text-gray-400">Shippng Info</Link>
             </li>
             <li>
-              <Link className="text-lg text-gray-400">Returns</Link>
+              <Link to={"/return"} className="text-lg text-gray-400">Returns</Link>
             </li>
           </ul>
         </div>
@@ -43,13 +44,13 @@ const Footer = () => {
           <h3 className="text-lg text-white font-bold">Follow Us</h3>
           <div className="flex space-x-3">
             <Link>
-              <img src="./assets/facebook.png" alt="Facebook" width={50} height={20} />
+              <FaFacebook className="text-blue-500"/>
             </Link>
             <Link>
-              <img src="./assets/tweeter.png" alt="X" width={50} height={20} />
+              <FaTwitter className="text-blue-500" />
             </Link>
             <Link>
-              <img src="./instagram.png" alt="Instagram" width={50} height={20} />
+              <FaInstagram className="bg-lineat-to-r from-orange-400 to-red-500 text-clip" />
             </Link>
           </div>
         </div>

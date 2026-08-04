@@ -1,81 +1,182 @@
-// import React from 'react'
 import axios from "axios";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { jwtDecode } from "jwt-decode";
-import { useState } from "react";
-import { toast } from "react-toastify";
 import * as Yup from "yup";
+import { toast, ToastContainer } from "react-toastify";
+
+const data = [
+  {
+    label: "Product Name",
+    name: "name",
+    type: "text",
+  },
+  {
+    label: "Brand",
+    name: "brand",
+    type: "text",
+  },
+  {
+    label: "Category",
+    name: "category",
+    type: "select",
+    options: ["Smartphone", "Laptop", "Accessory"],
+  },
+  {
+    label: "Price",
+    name: "price",
+    type: "number",
+  },
+  {
+    label: "Stock",
+    name: "stock",
+    type: "number",
+  },
+  {
+    label: "Description",
+    name: "description",
+    type: "textarea",
+  },
+  {
+    label: "Features",
+    name: "features",
+    type: "textarea",
+  },
+];
+
+const initialValues = {
+  name: "",
+  brand: "",
+  category: "",
+  price: "",
+  stock: "",
+  description: "",
+  features: "",
+  image: null,
+};
+
+const validationSchema = Yup.object({
+  name: Yup.string().required("Product name is required"),
+  brand: Yup.string().required("Brand is required"),
+  category: Yup.string().required("Category is required"),
+  price: Yup.number().required("Price is required"),
+  stock: Yup.number().required("Stock is required"),
+  description: Yup.string().required("Description is required"),
+  features: Yup.string().required("Features are required"),
+});
 
 const AddProduct = () => {
-  const [products, setProducts] = useState([]);
-  const initialValues = [
-    "image",
-    "name",
-    "brand",
-    "cartegory",
-    "description",
-    "features",
-  ];
+  const handleSubmit = async (values, { resetForm }) => {
+    try {
+      const formData = new FormData();
 
-  const validationSchema = Yup.object({
-    image: "",
-    name: "",
-    brand: "",
-    cartegoy: "",
-    description: "",
-    features: "",
-  });
-  
-  const handleAddProduct = async (values) => {
-    const token = res.data.token
-    if (!token) {
-      toast.error('Token not provided')
+      Object.keys(values).forEach((key) => {
+        formData.append(key, values[key]);
+      });
+
+      await axios.post(
+        "http://localhost:2574/admin/add-product",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      toast.success("Product added successfully");
+      resetForm();
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Failed to add product");
     }
-    const url = 'http://localhost:2574/admin/add-product'
-    const res = await axios.post(url, values)
-    const decoded = jwtDecode(token)
-    if (decoded.role !== 'admin') {
-      toast.error('Admin only')
-    }
-    setProducts(res.data)
-    toast.success(res.data.message)
   };
 
   return (
-    <div className="bg-gray-600 w-full flex justify-center align-middle">
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleAddProduct}
-      >
-        {({ touched, errors }) => (
-          <Form className="bg-white shadow w-[80%] h-[60%] rounded-lg">
-            {products.map((pd) => (
-              <div key={pd}>
-                {pd === "image" ? (
-                  <imput
-                    type="file"
-                    name="image"
-                    placeholder="Product Image"
-                    className="border rounded-lg w-full p-3"
+    <div className="min-h-screen bg-gray-100 flex justify-center items-center p-5">
+
+      <ToastContainer />
+
+      <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-xl">
+
+        <h1 className="text-3xl font-bold text-center mb-6">
+          Add Product
+        </h1>
+
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          {({ setFieldValue }) => (
+            <Form className="space-y-4">
+
+              {data.map((field) => (
+                <div key={field.name}>
+
+                  <label>{field.label}</label>
+
+                  {field.type === "textarea" ? (
+                    <Field
+                      as="textarea"
+                      name={field.name}
+                      className="w-full border rounded-md p-2"
+                    />
+                  ) : field.type === "select" ? (
+                    <Field
+                      as="select"
+                      name={field.name}
+                      className="w-full border rounded-md p-2"
+                    >
+                      <option value="">Select Category</option>
+
+                      {field.options.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </Field>
+                  ) : (
+                    <Field
+                      type={field.type}
+                      name={field.name}
+                      placeholder={field.label}
+                      className="w-full border rounded-md p-2"
+                    />
+                  )}
+
+                  <ErrorMessage
+                    name={field.name}
+                    component="small"
+                    className="text-red-500"
                   />
-                ) :  (
-                  <Field
-                    type={pd}
-                    name={pd}
-                    placeholder={pd}
-                    className={`border p-3 rounded-lg flex ${touched[pd] && errors[pd] ? "" : ""}`}
-                  />
-                )}
-                <ErrorMessage
-                  span
-                  className={`border p-2 rounded-3xl w-full ${touched[pd] && errors[pd] ? "" : ""}`}
+
+                </div>
+              ))}
+
+              <div>
+                <label>Product Image</label>
+
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) =>
+                    setFieldValue("image", e.target.files[0])
+                  }
+                  className="w-full border rounded-md p-2"
                 />
               </div>
-            ))}
-          </Form>
-        )}
-      </Formik>
+
+              <button
+                type="submit"
+                className="w-full bg-indigo-600 text-white p-3 rounded-md hover:bg-indigo-700"
+              >
+                Add Product
+              </button>
+
+            </Form>
+          )}
+        </Formik>
+
+      </div>
+
     </div>
   );
 };

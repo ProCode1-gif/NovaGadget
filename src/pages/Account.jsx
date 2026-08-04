@@ -3,6 +3,9 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import Samsumg from "../assets/images/samsung.jpg"
+import GalaxyUltra from "../assets/images/galaxyultra.jpg"
+import S24Ultra from "../assets/images/s24ultra.jpg"
 
 const Account = () => {
   const pathname = useParams();
@@ -30,13 +33,13 @@ const Account = () => {
               <ul className="p-6">
                 {links.map((link) => {
                   const slug = link.toLocaleLowerCase().replace(/\s+/g, "-");
-                  const active = pathname === `${slug}`;
+                  const active = pathname === `/user/${slug}`;
                   return (
                     <li key={link}>
                       <button className="w-full text-left hover:bg-blue-100 p-2 rounded-lg">
                         <Link
                           name={link}
-                          to={`${slug}`}
+                          to={`/user/${slug}`}
                           className={`text-lg ${active ? "" : ""}`}
                         >
                           {link}
@@ -56,16 +59,66 @@ const Account = () => {
                   Delivered
                 </p>
               </div>
-              <p className="text-gray-500 text-xs">Placed on March 15, 2024</p>
+              <p className="text-gray-500 text-xs">Placed on may 15, 2026</p>
               <div className="flex space-x-6 mt-6">
                 <div>
-                  <img src="" alt="product" />
+                  <img src={S24Ultra} alt="product" className="h-20" />
                 </div>
                 <div>
-                  <h4 className="font-semibold">MacBook 16 Pro"</h4>
+                  <h4 className="font-semibold">Samsung S24 Ultra</h4>
                   <p className="text-gray-500 text-sm">Quanlity: 1</p>
                   <p className="text-blue-700 text-sm font-bold py-3">
-                    $2, 499
+                    $1, 499
+                  </p>
+                </div>
+              </div>
+                <div className="flex justify-between">
+                  <button className="text-center w-[49%] border rounded-lg text-white text-sm bg-violet-700 p-2 cursor-pointer">Track Orders</button>
+                  <button className="text-center w-[49%] rounded-lg text-sm border-violet-700 border text-violet-700 cursor-pointer">View Details</button>
+                </div>
+            </div>
+            <div className="bg-white h-60 md:w-220 rounded-lg shadow-lg p-6">
+              <div className="flex justify-between">
+                <h2 className="text-lg font-bold">Order #12346</h2>
+                <p className="bg-green-200 text-green-800 px-2 rounded-full">
+                  Delivered
+                </p>
+              </div>
+              <p className="text-gray-500 text-xs">Placed on July 24, 2024</p>
+              <div className="flex space-x-6 mt-6">
+                <div>
+                  <img src={Samsumg} alt="product" className="h-20" />
+                </div>
+                <div>
+                  <h4 className="font-semibold">Samsung Galaxy S25 Ultra</h4>
+                  <p className="text-gray-500 text-sm">Quanlity: 1</p>
+                  <p className="text-blue-700 text-sm font-bold py-3">
+                    $1, 789
+                  </p>
+                </div>
+              </div>
+                <div className="flex justify-between">
+                  <button className="text-center w-[49%] border rounded-lg text-white text-sm bg-violet-700 p-2 cursor-pointer">Track Orders</button>
+                  <button className="text-center w-[49%] rounded-lg text-sm border-violet-700 border text-violet-700 cursor-pointer">View Details</button>
+                </div>
+            </div>
+            <div className="bg-white h-60 md:w-220 rounded-lg shadow-lg p-6">
+              <div className="flex justify-between">
+                <h2 className="text-lg font-bold">Order #12347</h2>
+                <p className="bg-green-200 text-green-800 px-2 rounded-full">
+                  Delivered
+                </p>
+              </div>
+              <p className="text-gray-500 text-xs">Placed on June 6, 2024</p>
+              <div className="flex space-x-6 mt-6">
+                <div>
+                  <img src={GalaxyUltra} alt="product" className="h-20" />
+                </div>
+                <div>
+                  <h4 className="font-semibold">Samsung Galaxy S24 Ultra</h4>
+                  <p className="text-gray-500 text-sm">Quanlity: 1</p>
+                  <p className="text-blue-700 text-sm font-bold py-3">
+                    $1, 249
                   </p>
                 </div>
               </div>
