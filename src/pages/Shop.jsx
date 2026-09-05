@@ -115,7 +115,7 @@ const Products = () => {
             No products found
           </p>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 space-x-6">
             {products.map((product) => (
               <ProductCard
                 key={product._id}

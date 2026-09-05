@@ -57,9 +57,7 @@ const Signin = () => {
 
       resetForm();
 
-      setTimeout(() => {
         navigate("/");
-      }, 1500);
     } catch (err) {
       toast.error(err.response?.data?.message || "Something went wrong");
     }
