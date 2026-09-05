@@ -14,10 +14,10 @@ const AdminSideBar = () => {
           <Link to={"product"}>Products</Link>
         </li>
         <li className="hover:bg-blue-50 p-3 rounded-lg cursor-pointer">
-          <Link to={"add-product"}>Add Product</Link>
+          <Link to={"addProduct"}>Add Product</Link>
         </li>
         <li className="hover:bg-blue-50 p-3 rounded-lg cursor-pointer">
-          <Link to={"orders"}>Orders</Link>
+          <Link to={"customersOrder"}>Orders</Link>
         </li>
         <li className="hover:bg-blue-50 p-3 rounded-lg cursor-pointer">
           <Link to={"customers"}>Customers</Link>

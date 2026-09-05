@@ -13,8 +13,9 @@ import MyOrders from "./pages/MyOrders";
 import PaymentMethod from "./pages/PaymentMethod";
 import ShippingAddress from "./pages/ShippingAddress";
 import Cart from "./pages/Cart";
-import Victor from "./pages/Victor";
 import Orders from "./pages/Orders";
+import AdminProducts from "./pages/AdminProducts";
+import AccountSettting from "./pages/AccountSettting";
 
 const App = () => {
   return (
@@ -25,16 +26,17 @@ const App = () => {
         <Route path="/signin" element={<Signin />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/user/account" element={<Account />} />
+        <Route path="/user/account-setting" element={<AccountSettting />} />
         <Route path="/user/cart" element={<Cart />} />
-        <Route path="/user/myOrders" element={<MyOrders />} />
-        <Route path="/user/shippingAddress" element={<ShippingAddress />} />
-        <Route path="/user/paymentMethod" element={<PaymentMethod />} />
+        <Route path="/user/my-orders" element={<MyOrders />} />
+        <Route path="/user/shipping-address" element={<ShippingAddress />} />
+        <Route path="/user/payment-method" element={<PaymentMethod />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/addProduct" element={<AddProduct />} />
         <Route path="/productcard" element={<ProductCard />} />
         <Route path="/admin/customers" element={<Customers />} />
         <Route path="/admin/customersOrder" element={<Orders />} />
-        <Route path="/victor" element={<Victor />} />
+        <Route path="/admin/product" element={<AdminProducts />} />
       </Routes>
     </>
   );

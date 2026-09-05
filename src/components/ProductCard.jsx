@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const ProductCard = (image, description, price, name, features) => {
+const ProductCard = ({ imageUrl, description, price, name, brand, category, stock, features }) => {
   const navigate = useNavigate()
   const addToCart = async (product) => {
     const token = localStorage.getItem('token')
@@ -22,24 +22,27 @@ const ProductCard = (image, description, price, name, features) => {
   }
 
   return (
-    <div className="bg-white/60 rounded-lg shadow-md w-70 m-3">
+    <div className="bg-white/60 rounded-lg shadow-md w-70 m-3 hover:scale-103 transition-transform duration-300 space-y-3">
       <img
-        src={image}
+        src={imageUrl}
         alt={name}
-        className="w-full h-48 object-cover rounded-md hover:scale-103"
+        className="w-full h-48 object-cover rounded-md"
       />
-      <div className="p-6">
-        <h3 className="text-lg font-semibold mt-2">{name}</h3>
-        <p className="text-gray-600 mt-1">{description}</p>
-        <button className="bg-indigo-500 text-white w-full rounded py-3 font-bold hover:bg-indigo-600" onClick={() => addToCart()}>
-          Add to Cart
-        </button>
-        <p className="text-green-500 font-bold mt-2">
-          {new Intl.NumberFormat("en-US", {
+      <div className="p-6 space-y-3">
+        <h3 className="text-lg font-bold text-center">{name}</h3>
+        <span className="text-lg font-semibold text-gray-600">{brand}</span>
+        <span className="text-lg font-semibold text-gray-600">{category}</span>
+        <span className="text-lg font-semibold text-gray-600">{stock}</span>
+        <p className="text-gray-600 mt-1 mb-3">{description}</p>
+        <p className="text-green-500 font-bold">
+          {new Intl.NumberFormat("en-NG", {
             style: "currency",
-            currency: "USD",
+            currency: "NGN",
           }).format(price)}
         </p>
+          <button className="bg-indigo-500 text-white w-full rounded py-3 font-bold hover:bg-indigo-600" onClick={() => addToCart()}>
+            Add to Cart
+          </button>
         <ul className="list-disc list-inside mt-2">
           {features?.map((feature, index) => (
             <li key={index} className="text-gray-600">

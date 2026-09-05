@@ -16,8 +16,31 @@ import {
 import { Line } from "react-chartjs-2";
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, ArcElement, Tooltip, Legend);
 import { Doughnut } from "react-chartjs-2";
+import { toast } from "react-toastify";
+import { jwtDecode } from "jwt-decode";
+import { useEffect } from "react";
 
 const Admin = () => {
+  useEffect(() => {
+    const Admin = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          toast.error("Token not provided");
+        }
+  
+        const decodedToken = jwtDecode(token);
+        if (decodedToken.role !== "admin") {
+          toast.error("You are not authorized to access this page");
+        }
+      } catch (error) {
+        toast.error(error.response?.data?.message || "Something went wrong");
+      }
+    };
+    Admin();
+  }, [])
+  
+
   const data = {
     labels: [
       "Jan",

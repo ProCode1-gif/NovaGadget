@@ -6,25 +6,35 @@ const Customers = () => {
   const [credentials, setCredentials] = useState([]);
   
   useEffect(() => {
-    const getCredentials = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        if (!token) {
-          toast.error("Token not provided");
-        }
+  const getCredentials = async () => {
+    try {
+      const token = localStorage.getItem("token");
 
-        const url = "http://localhost:2574/admin/customers";
-        const res = await axios.get(url);
-        setCredentials(res.data);
-      } catch (error) {
-        return error;
+      if (!token) {
+        return toast.error("Token not provided");
       }
-    };
-    getCredentials();
-  }, [credentials]);
+
+      const res = await axios.get(
+        "http://localhost:2574/admin/customers",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setCredentials(res.data);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data?.message || "Something went wrong");
+    }
+  };
+
+  getCredentials();
+}, []);
 
   return (
-    <div className="table-auto border border-slate-500 border-collapse">
+    <div className="table-auto border border-slate-500 border-collapse flex  justify-center items-center min-h-screen bg-[#F3F4F6] p-5">
       <table className="space-x-6 border">
         <caption className="caption-top text-center font-bold p-3">
           Customer Information

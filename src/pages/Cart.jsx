@@ -7,7 +7,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const Cart = () => {
-  const [cart, setCart] = useState([])
+  const [carts, setCarts] = useState([])
   useEffect(() => {
     const getCart = async () => {
       try {
@@ -17,20 +17,22 @@ const Cart = () => {
         }
         const url = "http://localhost:2574/user/myCart";
         const res = await axios.get(url);
-        setCart(res.data)
+        setCarts(res.data)
       } catch (error) {
         return error;
       }
     };
     getCart();
-  }, [cart]);
+  }, []);
 
   return (
     <>
       <Navbar />
       <div className="md:flex flex-2">
-        {cart.map((carts) => (
-          <ProductCard key={carts.id} product={carts} />
+        {carts.map((cart) => (
+          <ProductCard key={cart.id}
+          imageUrl={cart.imageUrl} 
+          />
         ))}
       </div>
       <Footer />

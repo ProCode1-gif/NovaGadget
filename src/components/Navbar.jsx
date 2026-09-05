@@ -1,4 +1,3 @@
-// import React from 'react'
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { X, Menu, User, ShoppingCart } from "lucide-react";
@@ -7,11 +6,12 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const pathname = useParams();
   const links = ["Accessories", "Smartphones", "Laptops"];
+  const token = localStorage.getItem("token");
   return (
     <nav className="top-0 w-full z-50 bg-white flex fixed justify-between align-middle py-3  px-20 shadow-lg">
       <div className="flex justify-between space-x-3">
         <Link to={"/"}>
-        <h1 className="text-2xl text-blue-700 font-bold">NovaGadget</h1>
+          <h1 className="text-2xl text-blue-700 font-bold">NovaGadget</h1>
         </Link>
       </div>
 
@@ -57,19 +57,22 @@ const Navbar = () => {
         })}
       </ul>
 
-      <div className="flex justify-between space-x-3">
-        <Link to={"/user/cart"}>
-          <ShoppingCart />
-        </Link>
-        <Link to={"/user/account"}>
-          <User />
-        </Link>
-        <Link to={"/signin"}>
-          <button className="bg-blue-700 px-3 py-1 rounded-lg cursor-pointer text-white hover:bg-blue-600 hover:text-white/90">
-            Sign In
-          </button>
-        </Link>
-      </div>
+        {token ? (
+          <div className="flex justify-between space-x-3">
+            <Link to={"/user/cart"}>
+              <ShoppingCart />
+            </Link>
+            <Link to={"/user/account"}>
+              <User />
+            </Link>
+          </div>
+        ) : (
+          <Link to={"/signin"}>
+            <button className="bg-blue-700 px-3 py-1 rounded-lg cursor-pointer text-white hover:bg-blue-600 hover:text-white/90">
+              Sign In
+            </button>
+          </Link>
+        )}
     </nav>
   );
 };

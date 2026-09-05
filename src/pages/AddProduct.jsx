@@ -2,6 +2,7 @@ import axios from "axios";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { toast, ToastContainer } from "react-toastify";
+import { jwtDecode } from "jwt-decode";
 
 const data = [
   {
@@ -66,6 +67,15 @@ const validationSchema = Yup.object({
 const AddProduct = () => {
   const handleSubmit = async (values, { resetForm }) => {
     try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        return toast.error("Token not provided");
+      }
+
+      const decodedToken = jwtDecode(token);
+      if (decodedToken.role !== "admin") {
+        return toast.error("You are not authorized to access this page");
+      }
       const formData = new FormData();
 
       Object.keys(values).forEach((key) => {
@@ -73,7 +83,7 @@ const AddProduct = () => {
       });
 
       await axios.post(
-        "http://localhost:2574/admin/add-product",
+        "http://localhost:2574/admin/addProduct",
         formData,
         {
           headers: {

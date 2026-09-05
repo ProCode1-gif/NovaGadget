@@ -1,4 +1,3 @@
-// import React from 'react'
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -55,7 +54,7 @@ const Account = () => {
             <div className="bg-white h-60 md:w-220 rounded-lg shadow-lg p-6">
               <div className="flex justify-between">
                 <h2 className="text-lg font-bold">Order #12345</h2>
-                <p className="bg-green-200 text-green-800 px-2 rounded-full">
+                <p className="bg-green-200 text-green-500 px-2 rounded-full">
                   Delivered
                 </p>
               </div>
@@ -80,8 +79,8 @@ const Account = () => {
             <div className="bg-white h-60 md:w-220 rounded-lg shadow-lg p-6">
               <div className="flex justify-between">
                 <h2 className="text-lg font-bold">Order #12346</h2>
-                <p className="bg-green-200 text-green-800 px-2 rounded-full">
-                  Delivered
+                <p className="bg-yellow-200 text-yellow-500 px-2 rounded-full">
+                  Pending
                 </p>
               </div>
               <p className="text-gray-500 text-xs">Placed on July 24, 2024</p>
@@ -105,8 +104,8 @@ const Account = () => {
             <div className="bg-white h-60 md:w-220 rounded-lg shadow-lg p-6">
               <div className="flex justify-between">
                 <h2 className="text-lg font-bold">Order #12347</h2>
-                <p className="bg-green-200 text-green-800 px-2 rounded-full">
-                  Delivered
+                <p className="bg-red-200 text-red-500 px-2 rounded-full">
+                  Cancelled
                 </p>
               </div>
               <p className="text-gray-500 text-xs">Placed on June 6, 2024</p>

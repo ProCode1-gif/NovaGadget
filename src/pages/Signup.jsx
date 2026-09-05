@@ -86,7 +86,7 @@ const Signup = () => {
       toast.success(res.data.message);
 
       resetForm();
-      toast.success("Account created successfully! Redirecting to Sign In page...");
+      toast.warning("Account created successfully! Redirecting to Sign In page...");
 
       setTimeout(() => {
         navigate("/signin");

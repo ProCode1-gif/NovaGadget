@@ -17,8 +17,11 @@ const MyOrder = () => {
           toast.error('Token not provided')
         }
 
-        const url = "http://localhost:2574/user/myOrder";
-        const res = await axios.get(url);
+        const res = await axios.get('http://localhost:2574/user/myOrder', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setOrder(res.data)
       } catch (error) {
         toast.error('Server error')
@@ -26,7 +29,7 @@ const MyOrder = () => {
       }
     };
     getOrder();
-  }, [order]);
+  }, []);
 
   return (
     <>
