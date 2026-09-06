@@ -52,7 +52,7 @@ const AccountSettting = () => {
 };
 
   return (
-    <div className="bg-white/60 min-h-screen py-20 px-40">
+    <div className="bg-black min-h-screen py-20 px-40 text-white">
       <h2 className="text-4xl font-bold text-center">Account Settings</h2>
       <div className="flex flex-col space-y-4 mt-20">
         <input className="border border-gray-500 p-3 rounded-md" value={user?.fullName} />

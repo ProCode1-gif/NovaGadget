@@ -100,11 +100,11 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center items-center p-5">
+    <div className="min-h-screen bg-black flex justify-center items-center p-5">
 
       <ToastContainer />
 
-      <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-xl">
+      <div className="bg-black shadow-lg rounded-lg p-6 w-full max-w-xl">
 
         <h1 className="text-3xl font-bold text-center mb-6">
           Add Product

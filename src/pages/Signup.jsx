@@ -88,19 +88,17 @@ const Signup = () => {
       resetForm();
       toast.warning("Account created successfully! Redirecting to Sign In page...");
 
-      setTimeout(() => {
         navigate("/signin");
-      }, 1500);
     } catch (err) {
       toast.error(err.response?.data?.message || "Something went wrong");
     }
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-[#F3F4F6] p-5">
+    <div className="min-h-screen flex justify-center items-center bg-black p-5">
       <ToastContainer />
 
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-lg">
+      <div className="p-8 rounded-lg shadow-md w-full max-w-lg">
         <h1 className="text-3xl font-bold text-center">Create Account</h1>
 
         <p className="text-center text-gray-500 mb-6">Join NovaGadget today</p>

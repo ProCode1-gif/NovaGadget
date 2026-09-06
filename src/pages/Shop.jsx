@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import ProductSkeleton from "../components/ProductSkeleton";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -11,19 +12,16 @@ const Products = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await axios.get(
-          "http://localhost:2574/user/shop"
-        );
+        const res = await axios.get("http://localhost:2574/user/shop");
 
         console.log("Products from API:", res.data);
 
         setProducts(res.data.products);
         console.log(typeof res.data);
-        
       } catch (error) {
         console.error(
           "Error fetching products:",
-          error.response?.data || error.message
+          error.response?.data || error.message,
         );
       } finally {
         setLoading(false);
@@ -99,21 +97,20 @@ const Products = () => {
   //     socket.close();
   //   }
   //   };
-  // }, []);
+  // });
 
   return (
     <>
       <Navbar />
-
-      <main className="min-h-screen px-5 py-20">
+      <main className="bg-black min-h-screen px-5 py-20">
         {loading ? (
-          <p className="text-center">
-            Loading products...
-          </p>
+          <div className="products-grid">
+            {Array.from({ length: 8 }).map((index) => (
+              <ProductSkeleton key={index} />
+            ))}
+          </div>
         ) : products.length === 0 ? (
-          <p className="text-center text-gray-500">
-            No products found
-          </p>
+          <p className="text-center text-gray-500">No products found</p>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 space-x-6">
             {products.map((product) => (
@@ -129,7 +126,6 @@ const Products = () => {
           </div>
         )}
       </main>
-
       <Footer />
     </>
   );

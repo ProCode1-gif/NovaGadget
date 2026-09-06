@@ -5,9 +5,11 @@ import Footer from "../components/Footer";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import ProductSkeleton from "../components/ProductSkeleton";
 
 const MyOrder = () => {
-  const [order, setOrder] = useState([])
+  const [orders, setOrders] = useState([])
+  const [loading, setLoading] = useState(false)
   
   useEffect(() => {
     const getOrder = async () => {
@@ -22,23 +24,45 @@ const MyOrder = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        setOrder(res.data)
+        setOrders(res.data)
       } catch (error) {
         toast.error('Server error')
         return error;
+      } finally {
+        setLoading(false)
       }
     };
     getOrder();
-  }, []);
+  });
 
   return (
     <>
       <Navbar />
-      <div className="md:flex flex-2">
-        {order.map((orders) => (
-          <ProductCard key={orders.id} product={orders} />
-        ))}
-      </div>
+      <main className="bg-black min-h-screen px-5 py-20">
+        {loading ? (
+          <div className="products-grid">
+            {Array.from({ length: 8 }).map((index) => (
+              <ProductSkeleton key={index} />
+            ))}
+          </div>
+        ) : orders.length === 0 ? (
+          <p className="text-center text-gray-500">No products found</p>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 space-x-6">
+            {orders.map((order) => (
+              <ProductCard
+                key={order._id}
+                imageUrl={order.imageUrl}
+                name={order.name}
+                brand={order.brand}
+                description={order.description}
+                price={order.price}
+              />
+            ))}
+          </div>
+        )}
+      </main>
+      <Footer />
       <Footer />
     </>
   );

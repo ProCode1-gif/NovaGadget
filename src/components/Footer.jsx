@@ -50,7 +50,7 @@ const Footer = () => {
               <FaTwitter className="text-blue-500" />
             </Link>
             <Link>
-              <FaInstagram className="bg-lineat-to-r from-orange-400 to-red-500 text-clip" />
+              <FaInstagram className="bg-linear-to-r from-purple-500 via-pink-500 to-orange-500 bg-clip-text text-transparent" />
             </Link>
           </div>
         </div>

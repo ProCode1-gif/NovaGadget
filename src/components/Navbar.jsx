@@ -1,78 +1,68 @@
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { X, Menu, User, ShoppingCart } from "lucide-react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { User, ShoppingCart, Search } from "lucide-react";
 
 const Navbar = () => {
-  const [open, setOpen] = useState(false);
-  const pathname = useParams();
-  const links = ["Accessories", "Smartphones", "Laptops"];
+  const [search, setSearch] = useState("");
+  const [products, setProducts] = useState([]);
   const token = localStorage.getItem("token");
+
+  const handleSearch = async (e) => {
+    e.preventDefaut;
+
+    if (!search.trim) return;
+
+    try {
+      const res = await axios.geet(
+        `http://localhost:2574/user/search?search=${encodeURIComponent(search)}`,
+      );
+      setProducts(res.daa.products);
+
+      if (!products) return;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <nav className="top-0 w-full z-50 bg-white flex fixed justify-between align-middle py-3  px-20 shadow-lg">
+    <nav className="top-0 w-full z-50 bg-gray-800 flex fixed justify-between align-middle py-3  px-20 shadow-lg text-white">
       <div className="flex justify-between space-x-3">
         <Link to={"/"}>
           <h1 className="text-2xl text-blue-700 font-bold">NovaGadget</h1>
         </Link>
       </div>
 
-      <button
-        onClick={() => setOpen(!open)}
-        className="md:hidden flex text-gray-700 hover:text-blue-700 focus:outline-none cursor-pointer"
+      <form
+        onSubmit={handleSearch}
+        className="flex space-x-3 w-60 bg-gray-600 rounded-full justify-center align-middle"
       >
-        {open ? <X size={24} /> : <Menu size={24} />}
-      </button>
-      {open && (
-        <ul className="absolute top-16 left-0 w-full bg-white shadow-md py-4 px-6 space-y-4 md:hidden">
-          {links.map((name) => {
-            const slug = name.toLocaleLowerCase().replace(/\s+/g, "-");
-            const active = pathname === `/${slug}`;
-            return (
-              <li key={name}>
-                <Link
-                  to={`/${slug}`}
-                  className={` ${active ? "text-blue-700" : " hover:bg-blue-100 p-2 rounded-lg text-gray-700"}`}
-                >
-                  {name}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      )}
+        <Search className="md:hidden" />
+        <input
+          type="search"
+          placeholder="Search electronics product"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="outline-none"
+        />
+      </form>
 
-      <ul className="hidden md:flex space-x-6">
-        {links.map((name) => {
-          const slug = name.toLocaleLowerCase().replace(/\s+/g, "-");
-          const active = pathname === `/${slug}`;
-          return (
-            <li key={name}>
-              <Link
-                to={`/${slug}`}
-                className={` ${active ? "text-blue-700" : "text-gray-700"} hover:text-blue-700`}
-              >
-                {name}
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-
-        {token ? (
-          <div className="flex justify-between space-x-3">
-            <Link to={"/user/cart"}>
-              <ShoppingCart />
-            </Link>
-            <Link to={"/user/account"}>
-              <User />
-            </Link>
-          </div>
-        ) : (
-          <Link to={"/signin"}>
-            <button className="bg-blue-700 px-3 py-1 rounded-lg cursor-pointer text-white hover:bg-blue-600 hover:text-white/90">
-              Sign In
-            </button>
+      {token ? (
+        <div className="flex justify-between space-x-3">
+          <Link to={"/user/cart"}>
+            <ShoppingCart />
           </Link>
-        )}
+          <Link to={"/user/account"}>
+            <User />
+          </Link>
+        </div>
+      ) : (
+        <Link to={"/signin"}>
+          <button className="bg-blue-700 px-3 py-1 rounded-lg cursor-pointer text-white hover:bg-blue-600 hover:text-white/90">
+            Sign In
+          </button>
+        </Link>
+      )}
     </nav>
   );
 };

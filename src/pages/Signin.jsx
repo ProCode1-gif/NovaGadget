@@ -64,10 +64,10 @@ const Signin = () => {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-[#F3F4F6] p-5">
+    <div className="min-h-screen flex justify-center items-center bg-black p-5">
           <ToastContainer />
     
-          <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-lg">
+          <div className="p-8 rounded-lg shadow-md w-full max-w-lg">
             <h1 className="text-3xl font-bold text-center">Sign In</h1>
 
             <p className="text-center text-gray-500 mb-6">Welcome back to NovaGadget</p>

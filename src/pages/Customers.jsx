@@ -34,7 +34,7 @@ const Customers = () => {
 }, []);
 
   return (
-    <div className="table-auto border border-slate-500 border-collapse flex  justify-center items-center min-h-screen bg-[#F3F4F6] p-5">
+    <div className="table-auto border border-slate-500 border-collapse flex  justify-center items-center min-h-screen bg-black p-5">
       <table className="space-x-6 border">
         <caption className="caption-top text-center font-bold p-3">
           Customer Information
