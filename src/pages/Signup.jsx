@@ -91,7 +91,7 @@ const Signup = () => {
       );
 
       if (res.data.message === "Already have an account") {
-        navigate("/signup");
+        navigate("/signin");
       }
 
       navigate("/signin");

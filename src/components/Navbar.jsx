@@ -26,7 +26,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="top-0 w-full z-50 bg-gray-800 flex fixed justify-between align-middle py-3  px-20 shadow-lg text-white">
+    <nav className="top-0 w-full z-50 bg-gray-800 flex fixed justify-between align-middle py-3 shadow-lg text-white">
       <div className="flex justify-between space-x-3">
         <Link to={"/"}>
           <h1 className="text-2xl text-blue-700 font-bold">NovaGadget</h1>
