@@ -57,6 +57,10 @@ const Signin = () => {
 
       resetForm();
 
+      if (res.data.message === "Signin failed") {
+        navigate("/signup");
+      }
+      
       navigate("/");
     } catch (err) {
       toast.error(err.response?.data?.message || "Something went wrong");

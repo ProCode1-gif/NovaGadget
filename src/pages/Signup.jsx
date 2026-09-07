@@ -86,9 +86,13 @@ const Signup = () => {
       toast.success(res.data.message);
 
       resetForm();
-      toast.warning(
+      toast.success(
         "Account created successfully! Redirecting to Sign In page...",
       );
+
+      if (res.data.message === "Already have an account") {
+        navigate("/signup");
+      }
 
       navigate("/signin");
     } catch (err) {
