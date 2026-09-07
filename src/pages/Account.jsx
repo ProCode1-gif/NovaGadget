@@ -2,25 +2,25 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import Samsumg from "../assets/images/samsung.jpg"
-import GalaxyUltra from "../assets/images/galaxyultra.jpg"
-import S24Ultra from "../assets/images/s24ultra.jpg"
+import Samsumg from "../assets/images/samsung.jpg";
+import GalaxyUltra from "../assets/images/galaxyultra.jpg";
+import S24Ultra from "../assets/images/s24ultra.jpg";
 
 const Account = () => {
   const pathname = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const links = [
     "My Orders",
     "Shipping Address",
     "Payment Method",
     "Account Setting",
   ];
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem("token");
   if (!token) {
-    toast.error('Token not providedd')
-    navigate('/signup')
+    toast.error("Token not providedd");
+    navigate("/signup");
   }
-  
+
   return (
     <>
       <Navbar />
@@ -71,10 +71,14 @@ const Account = () => {
                   </p>
                 </div>
               </div>
-                <div className="flex justify-between">
-                  <button className="text-center w-[49%] border rounded-lg text-white text-sm bg-violet-700 p-2 cursor-pointer">Track Orders</button>
-                  <button className="text-center w-[49%] rounded-lg text-sm border-white border text-white cursor-pointer">View Details</button>
-                </div>
+              <div className="flex justify-between">
+                <button className="text-center w-[49%] border rounded-lg text-white text-sm bg-violet-700 p-2 cursor-pointer">
+                  Track Orders
+                </button>
+                <button className="text-center w-[49%] rounded-lg text-sm border-white border text-white cursor-pointer">
+                  View Details
+                </button>
+              </div>
             </div>
             <div className="bg-gray-600 h-60 md:w-220 rounded-lg shadow-lg p-6">
               <div className="flex justify-between">
@@ -96,10 +100,14 @@ const Account = () => {
                   </p>
                 </div>
               </div>
-                <div className="flex justify-between">
-                  <button className="text-center w-[49%] border rounded-lg text-white text-sm bg-violet-700 p-2 cursor-pointer">Track Orders</button>
-                  <button className="text-center w-[49%] rounded-lg text-sm border-white border text-white cursor-pointer">View Details</button>
-                </div>
+              <div className="flex justify-between">
+                <button className="text-center w-[49%] border rounded-lg text-white text-sm bg-violet-700 p-2 cursor-pointer">
+                  Track Orders
+                </button>
+                <button className="text-center w-[49%] rounded-lg text-sm border-white border text-white cursor-pointer">
+                  View Details
+                </button>
+              </div>
             </div>
             <div className="bg-gray-600 h-60 md:w-220 rounded-lg shadow-lg p-6">
               <div className="flex justify-between">
@@ -121,10 +129,14 @@ const Account = () => {
                   </p>
                 </div>
               </div>
-                <div className="flex justify-between">
-                  <button className="text-center w-[49%] border rounded-lg text-white text-sm bg-violet-700 p-2 cursor-pointer">Track Orders</button>
-                  <button className="text-center w-[49%] rounded-lg text-sm border-white border text-white cursor-pointer">View Details</button>
-                </div>
+              <div className="flex justify-between">
+                <button className="text-center w-[49%] border rounded-lg text-white text-sm bg-violet-700 p-2 cursor-pointer">
+                  Track Orders
+                </button>
+                <button className="text-center w-[49%] rounded-lg text-sm border-white border text-white cursor-pointer">
+                  View Details
+                </button>
+              </div>
             </div>
           </div>
         </div>

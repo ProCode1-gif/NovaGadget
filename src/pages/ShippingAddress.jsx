@@ -1,96 +1,74 @@
 // import React from 'react'
 import axios from "axios";
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const ShippingAddress = () => {
-  const [address, setAddress] = useState([])
+  const [address, setAddress] = useState({});
+  const [addressUpdate, setAddressUpdate] = useState({});
+  const [addAddress, setAddAddress] = useState({});
+
   useEffect(() => {
     const address = async () => {
       try {
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem("token");
         if (!token) {
-          toast.error('Token not provided')
+          toast.error("Token not provided");
         }
-        
-        const res = await axios.get("http://localhost:2574/user/address", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        setAddress(res.data)
+
+        const [getAddress, updateAddress, addAddress] = await Promise.all([
+          axios.get("https://novagadget-server.onrender.com/user/address"),
+          axios.put("https://novagadget-server.onrender.com/user/address"),
+          axios.post("https://novagadget-server.onrender.com/user/addAddress"),
+        ]);
+        setAddress(getAddress.data.address);
+        setAddressUpdate(updateAddress.data.addressUpdate);
+        setAddAddress(addAddress.data.addAddress);
       } catch (error) {
-        toast.error('Server error')
-        return error
+        toast.error("Server error");
+        return error;
       }
     };
-    address()
-  }, [])
-
-  const updateAddress = async () => {
-    try {
-      const token = localStorage.getItem("token");
-  
-      const res = await axios.put(
-        "http://localhost:2574/user/profile",
-        address,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
-  
-      toast.success("Profile updated");
-  
-      setAddress(res.data.user);
-    } catch (error) {
-      toast.error(error.response?.data?.message);
-    }
-  };
+    address();
+  });
 
   return (
     <div className="bg-black min-h-screen py-20 px-40 text-white">
       <h2 className="text-4xl font-bold text-center">Shipping Address</h2>
       <div className="flex flex-col space-y-4 mt-20">
-        <input
-          className="border border-gray-500 p-3 rounded-md"
-          value={address?.phoneNumber}
-        />
-        <input
-          className="border border-gray-500 p-3 rounded-md"
-          value={address?.country}
-        />
-        <input
-          className="border border-gray-500 p-3 rounded-md"
-          value={address?.state}
-        />
-        <input
-          className="border border-gray-500 p-3 rounded-md"
-          value={address?.city}
-        />
-        <input
-          className="border border-gray-500 p-3 rounded-md"
-          value={address?.street}
-        />
-        <input
-          className="border border-gray-500 p-3 rounded-md"
-          value={address?.portalCode}
-        />
-        <input
-          className="border border-gray-500 p-3 rounded-md"
-          value={address?.landmark}
-        />
-        <input
-          className="border border-gray-500 p-3 rounded-md"
-          value={address?.addressType}
-        />
-        <button className="bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600" onClick={updateAddress}>
-          Save Changes
-        </button>
+        {address.length === 0 ? (
+          <p className="text-center">No shipping address found.</p>
+        ) : (
+          <div>
+            <p>Phone Number: <input type="text" defaultValue={address?.phoneNumber} /> </p>
+            <p>country: <input type="text" defaultValue={address?.country} /> </p>
+            <p>state: <input type="text" defaultValue={address?.state} /> </p>
+            <p>city: <input type="text" defaultValue={address?.city} /> </p>
+            <p>street: <input type="text" defaultValue={address?.street} /> </p>
+            <p>portalCode: <input type="text" defaultValue={address?.portalCode} /> </p>
+            <p>landmark: <input type="text" defaultValue={address?.landmark} /> </p>
+            <p>addressType: <input type="text" defaultValue={address?.addressType} /> </p>
+            <div className="flex space-x-4 mt-6">
+            <button
+            type="submit"
+              className="bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600"
+              onClick={addressUpdate}
+            >
+              Save Changes
+            </button>
+            <button
+            type="submit"
+              className="bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600"
+              onClick={addAddress}
+            >
+              Add New Address
+            </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default ShippingAddress
+export default ShippingAddress;

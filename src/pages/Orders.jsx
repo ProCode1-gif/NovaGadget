@@ -25,7 +25,7 @@ const Orders = () => {
         toast.error("You are not authorized to access this page");
       }
       
-        const url = "http://localhost:2574/admin/customersOrder";
+        const url = "https://novagadget-server.onrender.com/admin/customersOrder";
         const res = await axios.get(url, {
           headers: {
             Authorization: `Bearer ${token}`,

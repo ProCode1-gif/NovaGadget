@@ -19,7 +19,7 @@ const MyOrder = () => {
           toast.error('Token not provided')
         }
 
-        const res = await axios.get('http://localhost:2574/user/myOrder', {
+        const res = await axios.get('https://novagadget-server.onrender.com/user/myOrder', {
           headers: {
             Authorization: `Bearer ${token}`,
           },

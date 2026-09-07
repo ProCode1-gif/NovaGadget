@@ -83,7 +83,7 @@ const AddProduct = () => {
       });
 
       await axios.post(
-        "http://localhost:2574/admin/addProduct",
+        "https://novagadget-server.onrender.com/admin/addProduct",
         formData,
         {
           headers: {

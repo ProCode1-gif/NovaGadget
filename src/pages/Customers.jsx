@@ -15,7 +15,7 @@ const Customers = () => {
       }
 
       const res = await axios.get(
-        "http://localhost:2574/admin/customers",
+        "https://novagadget-server.onrender.com/admin/customers",
         {
           headers: {
             Authorization: `Bearer ${token}`,

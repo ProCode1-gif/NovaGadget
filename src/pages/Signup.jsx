@@ -75,7 +75,7 @@ const Signup = () => {
 
   const handleSignup = async (values, { resetForm }) => {
     try {
-      const res = await axios.post("http://localhost:2574/user/signup", values);
+      const res = await axios.post("https://novagadget-server.onrender.com/user/signup", values);
 
       const token = res.data.token;
 
@@ -86,19 +86,21 @@ const Signup = () => {
       toast.success(res.data.message);
 
       resetForm();
-      toast.warning("Account created successfully! Redirecting to Sign In page...");
+      toast.warning(
+        "Account created successfully! Redirecting to Sign In page...",
+      );
 
-        navigate("/signin");
+      navigate("/signin");
     } catch (err) {
       toast.error(err.response?.data?.message || "Something went wrong");
     }
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-black p-5">
+    <div className="min-h-screen flex justify-center items-center bg-black p-5 text-white">
       <ToastContainer />
 
-      <div className="p-8 rounded-lg shadow-md w-full max-w-lg">
+      <div className="p-8 rounded-lg shadow-md w-full max-w-lg bg-stone-900">
         <h1 className="text-3xl font-bold text-center">Create Account</h1>
 
         <p className="text-center text-gray-500 mb-6">Join NovaGadget today</p>
@@ -254,14 +256,14 @@ const Signup = () => {
 
                 <button
                   type="submit"
-                  className="w-full bg-[#4F46E5] text-white p-3 rounded-md"
+                  className="w-full bg-[#4F46E5] text-white p-3 rounded-md cursor-pointer"
                 >
                   Create Account
                 </button>
 
                 <p className="text-center">
                   Already have an account?
-                  <Link to="/signin" className="text-blue-600 ml-2">
+                  <Link to="/signin" className="text-blue-600 ml-2 cursor-pointer">
                     Sign In
                   </Link>
                 </p>

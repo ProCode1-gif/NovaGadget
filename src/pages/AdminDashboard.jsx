@@ -52,12 +52,12 @@ const Admin = () => {
     const getDisplayData = async () => {
       try {
         const [category, monthly, revenue, customer, product, orders] = await Promise.all([
-          axios.get("http:///localhost:2574/admin/categorySales"),
-          axios.get("http:///localhost:2574/admin/monthlySales"),
-          axios.get("http://localhost:2574/admin/customersAddress"),
-          axios.get("http://localhost:2574/admin/customers"),
-          axios.get("http://localhost:2574/user/shop"),
-          axios.get("http://localhost:2574/admin/customersOrder"),
+          axios.get("https://novagadget-server.onrender.com/admin/categorySales"),
+          axios.get("https://novagadget-server.onrender.com/admin/monthlySales"),
+          axios.get("https://novagadget-server.onrender.com/admin/customersAddress"),
+          axios.get("https://novagadget-server.onrender.com/admin/customers"),
+          axios.get("https://novagadget-server.onrender.com/user/shop"),
+          axios.get("https://novagadget-server.onrender.com/admin/customersOrder"),
         ])
         setSales(category.data.sales)
         setMonthlySales(monthly.data.monthlySales)

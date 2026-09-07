@@ -16,7 +16,7 @@ const AccountSettting = () => {
           return;
         }
 
-        const res = await axios.get("http://localhost:2574/user/profile", {
+        const res = await axios.get("https://novagadget-server.onrender.com/user/profile", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -34,7 +34,7 @@ const AccountSettting = () => {
     const token = localStorage.getItem("token");
 
     const res = await axios.put(
-      "http://localhost:2574/user/profile",
+      "https://novagadget-server.onrender.com/user/profile",
       user,
       {
         headers: {

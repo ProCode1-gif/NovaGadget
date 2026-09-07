@@ -15,7 +15,7 @@ const Navbar = () => {
 
     try {
       const res = await axios.geet(
-        `http://localhost:2574/user/search?search=${encodeURIComponent(search)}`,
+        `https://novagadget-server.onrender.com/user/search?search=${encodeURIComponent(search)}`,
       );
       setProducts(res.daa.products);
 
