@@ -10,15 +10,18 @@ const Products = () => {
   const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [count, setCount] = useState(1);
+  const [cartCount, setCartCount] = useState(1);
 
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await axios.get(
-          "https://novagadget-server.onrender.com/user/shop",
-        );
+        const [allProducts, addToCart] = await Promise.all([
+          axios.get("https://novagadget-server.onrender.com/user/shop"),
+          axios.get("https://novagadget-server.onrender.com/user/addToCart")
+        ]);
 
-        setProducts(res.data.products);
+        setProducts(allProducts.data.products);
+        setCartCount(addToCart.data.cart);
       } catch (error) {
         console.error(
           "Error fetching products:",
@@ -214,7 +217,7 @@ const Products = () => {
                     Total: ₦{(selectedProduct.price * count).toLocaleString()}
                   </p>
 
-                  <button className="mt-5 w-full rounded-lg bg-blue-600 py-3 text-white cursor-pointer hover:bg-blue-700 transition-colors">
+                  <button type="button" className="mt-5 w-full rounded-lg bg-blue-600 py-3 text-white cursor-pointer hover:bg-blue-700 transition-colors" onClick={() => cartCount}>
                     Add to Cart
                   </button>
 

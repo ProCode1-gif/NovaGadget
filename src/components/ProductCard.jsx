@@ -1,4 +1,3 @@
-// import React from 'react'
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -15,7 +14,8 @@ const ProductCard = ({
   onClick
 }) => {
   const navigate = useNavigate();
-  const addToCart = async (product) => {
+
+  const placeOrder = async (product) => {
     const token = localStorage.getItem("token");
     if (!token) {
       toast.error("Token not provided");
@@ -23,9 +23,8 @@ const ProductCard = ({
     }
 
     try {
-      const url = "https://novagadget-server.onrender.com/user/addToCart";
-      const res = await axios.post(url, product);
-      return res.data;
+      const order = await axios.post("https://novagadget-server.onrender.com/user/placeOrder", product);
+      return order.data.order;
     } catch (error) {
       return error;
     }
@@ -61,12 +60,9 @@ const ProductCard = ({
           
         <button
           className="bg-indigo-500 text-white w-full rounded py-3 font-bold hover:bg-indigo-600"
-          onClick={(e) => {
-            e.stopPropagation();
-            addToCart();
-          }}
+          onClick={() => placeOrder}
         >
-          Add to Cart
+          Place Order
         </button>
         </div>
       </div>
