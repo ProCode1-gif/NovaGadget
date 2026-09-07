@@ -32,7 +32,7 @@ const ProductCard = ({
   };
 
   return (
-    <div className="bg-white/60 rounded-lg shadow-md w-70 m-3 hover:scale-103 transition-transform duration-300 space-y-3 cursor-pointer" onClick={onClick}>
+    <div className="bg-white/60 rounded-lg shadow-md m-3 hover:scale-103 transition-transform duration-300 space-y-3 cursor-pointer" onClick={onClick}>
       <img
         src={imageUrl}
         alt={name}
