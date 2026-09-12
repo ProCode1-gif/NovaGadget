@@ -15,17 +15,15 @@ const Products = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const [getProduct, addToCart] = await Promise.allSettled([
-          axios.get("https://novagadget-server.onrender.com/user/shop"),
-          axios.post("https://novagadget-server.onrender.com/user/addToCart", {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            }
-          })
-        ]);
+        const res = await axios.get("https://novagadget-server.onrender.com/user/shop");
+        const addToCart = await axios.post("https://novagadget-server.onrender.com/user/addToCart", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          }
+        });
 
-        setProducts(getProduct.data.products);
-        setCartCount(addToCart.data.cart);
+        setProducts(res?.data?.products);
+        setCartCount(addToCart?.data?.cart);
       } catch (error) {
         console.error(
           "Error fetching products:",
