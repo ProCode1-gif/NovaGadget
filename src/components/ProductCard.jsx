@@ -37,13 +37,13 @@ const ProductCard = ({
         alt={name}
         className="w-full h-48 object-cover rounded-md"
       />
-      <div className="p-6 space-y-3">
+      <div className="md:p-6 p-2 space-y-3">
         <h3 className="text-lg font-bold text-center">{name}</h3>
         <span className="text-lg font-semibold text-gray-600">{brand}</span>
         <span className="text-lg font-semibold text-gray-600">{category}</span>
         <span className="text-lg font-semibold text-gray-600">{stock}</span>
         <p className="text-gray-600 mt-1 mb-3">{description}</p>
-        <p className="text-gray-500 font-bold">
+        <p className="text-black font-bold">
           {new Intl.NumberFormat("en-NG", {
             style: "currency",
             currency: "NGN",

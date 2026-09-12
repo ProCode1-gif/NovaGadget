@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
 
 const Customers = () => {
   const [credentials, setCredentials] = useState([]);
@@ -23,7 +25,7 @@ const Customers = () => {
         }
       );
 
-      setCredentials(res.data);
+      setCredentials(res.data.customers);
     } catch (error) {
       console.log(error);
       toast.error(error.response?.data?.message || "Something went wrong");
@@ -34,9 +36,11 @@ const Customers = () => {
 }, []);
 
   return (
+    <>
+    <Navbar />
     <div className="table-auto border border-slate-500 border-collapse flex  justify-center items-center min-h-screen bg-black p-5">
-      <table className="space-x-6 border">
-        <caption className="caption-top text-center font-bold p-3">
+      <table className="space-x-6 border text-white space-y-6">
+        <caption className="caption-top text-center md:text-7xl text-3xl font-bold p-3">
           Customer Information
         </caption>
         <thead>
@@ -45,13 +49,11 @@ const Customers = () => {
             <th className="border border-slate-500 p-2">Full Name</th>
             <th className="border border-slate-500 p-2">Email</th>
             <th className="border border-slate-500 p-2">Phone Number</th>
-            <th className="border border-slate-500 p-2">Orders</th>
-            <th className="border border-slate-500 p-2">Expenses</th>
           </tr>
         </thead>
         <tbody>
           {credentials.map((credential, i) => {
-            const { fullName, email, phoneNumber, orders, expenses } =
+            const { fullName, email, phoneNumber } =
               credential;
             return (
               <tr>
@@ -59,14 +61,14 @@ const Customers = () => {
                 <td className="border border-slate-500 p-2">{fullName}</td>
                 <td className="border border-slate-500 p-2">{email}</td>
                 <td className="border border-slate-500 p-2">{phoneNumber}</td>
-                <td className="border border-slate-500 p-2">{orders}</td>
-                <td className="border border-slate-500 p-2">{expenses}</td>
               </tr>
             );
           })}
         </tbody>
       </table>
     </div>
+    <Footer />
+    </>
   );
 };
 

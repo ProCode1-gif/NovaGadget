@@ -2,6 +2,7 @@ import axios from "axios";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useNavigate, Link } from "react-router-dom";
 import { FaEye, FaEyeSlash, FaCheck, FaTimes } from "react-icons/fa";
 import { useState } from "react";
@@ -56,14 +57,16 @@ const Signin = () => {
       toast.success(res.data.message);
 
       resetForm();
-
-      if (res.data.message === "Signin failed") {
-        navigate("/signup");
-      }
       
       navigate("/");
     } catch (err) {
-      toast.error(err.response?.data?.message || "Something went wrong");
+      const msg = err.response?.data?.message;
+
+      toast.error(msg || "Something went wrong");
+      
+      if (msg === "Signin failed") {
+        navigate("/signup");
+      }
     }
   };
 

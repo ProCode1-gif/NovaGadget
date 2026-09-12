@@ -1,23 +1,24 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { User, ShoppingCart, Search } from "lucide-react";
+import { User, ShoppingCart, Search, X } from "lucide-react";
 
 const Navbar = () => {
   const [search, setSearch] = useState("");
   const [products, setProducts] = useState([]);
+  const [showForm, setShowForm] = useState(false);
   const token = localStorage.getItem("token");
 
   const handleSearch = async (e) => {
-    e.preventDefaut;
+    e.preventDefault();
 
-    if (!search.trim) return;
+    if (!search.trim()) return;
 
     try {
-      const res = await axios.geet(
+      const res = await axios.get(
         `https://novagadget-server.onrender.com/user/search?search=${encodeURIComponent(search)}`,
       );
-      setProducts(res.daa.products);
+      setProducts(res.data.products);
 
       if (!products) return;
     } catch (error) {
@@ -35,17 +36,52 @@ const Navbar = () => {
 
       <form
         onSubmit={handleSearch}
-        className="flex space-x-3 w-60 bg-gray-600 rounded-full justify-center align-middle"
+        className="hidden md:flex space-x-3 w-60 bg-gray-600 rounded-full justify-center align-middle"
       >
-        <Search className="md:hidden" />
+        <button type="submit">
+          <Search />
+        </button>
         <input
           type="search"
           placeholder="Search electronics product"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="outline-none"
+          className="outline-none w-40 bg-gray-600 text-white"
         />
       </form>
+
+      <div className="md:hidden">
+        {showForm ? (
+          <div className="grid items-center">
+            <X
+              size={22}
+              className="cursor-pointer text-center"
+              onClick={() => setShowForm(false)}
+            />
+            <form
+              className="space-x-3 w-60 bg-gray-600 rounded-full justify-center align-middle"
+              onSubmit={handleSearch}
+            >
+              <button type="submit">
+                <Search size={22} className="cursor-pointer" />
+              </button>
+              <input
+                type="search"
+                placeholder="Search electronics product"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="outline-none w-40 bg-gray-600 text-white"
+              />
+            </form>
+          </div>
+        ) : (
+          <Search
+            size={22}
+            className="cursor-pointer text-center"
+            onClick={() => setShowForm(true)}
+          />
+        )}
+      </div>
 
       {token ? (
         <div className="flex justify-between space-x-3">

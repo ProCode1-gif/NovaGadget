@@ -2,6 +2,8 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const PaymentMethod = () => {
   const [payment, setPayment] = useState({});
@@ -29,7 +31,7 @@ const PaymentMethod = () => {
             ),
           ],
         );
-        setPayment(getPayment.data.payment);
+        setPayment(getPayment.data?.payment);
         setPaymentUpdate(updatePayment.data.updatePayment);
         setAddPaymentMethod(addPaymentMethod.data.addPaymentMethod);
       } catch (error) {
@@ -41,25 +43,23 @@ const PaymentMethod = () => {
   }, []);
 
   return (
-    <div className="bg-black min-h-screen py-20 px-40 text-white">
-      <h2 className="text-4xl font-bold text-center">Payment Methods</h2>
+    <>
+    <Navbar />
+    <div className="bg-black min-h-screen py-20 px-5 ">
+      <h2 className="text-4xl font-bold text-center text-white">Payment Methods</h2>
       <div className="flex flex-col space-y-4 mt-20">
         {payment.length === 0 ? (
           <p className="text-center">No payment methods found.</p>
         ) : (
-          payment.map((method) => (
-            <div
-              key={method._id}
-              className="border border-gray-500 p-3 rounded-md"
-            >
-              <p>Type: <input type="text" defaultValue={method.type} /> </p>
-              <p>Cardholder Name: <input type="text" defaultValue={method.cardholderName} /> </p>
-              <p>Card Number: <input type="text" defaultValue={method.cardNumber} /> </p>
-              <p>Expiry Month: <input type="text" defaultValue={method.expiryMonth} /> </p>
-              <p>Expiry Year: <input type="text" defaultValue={method.expiryYear} /> </p>
-              <p>Bank Name: <input type="text" defaultValue={method.bankName} /> </p>
-              <p>Account Number: <input type="text" defaultValue={method.accountNumber} /> </p>
-              <p>CVV: <input type="text" defaultValue={method.cvv} /> </p>
+            <div className="bg-white p-5 rounded-md space-y-6">
+              <p>Type: <input type="text" defaultValue={payment.type} className="border border-gray-500 p-3 rounded-md" /> </p>
+              <p>Cardholder Name: <input type="text" defaultValue={payment.cardholderName} className="border border-gray-500 p-3 rounded-md" /> </p>
+              <p>Card Number: <input type="text" defaultValue={payment.cardNumber} className="border border-gray-500 p-3 rounded-md" /> </p>
+              <p>Expiry Month: <input type="text" defaultValue={payment.expiryMonth} className="border border-gray-500 p-3 rounded-md" /> </p>
+              <p>Expiry Year: <input type="text" defaultValue={payment.expiryYear} className="border border-gray-500 p-3 rounded-md" /> </p>
+              <p>Bank Name: <input type="text" defaultValue={payment.bankName} className="border border-gray-500 p-3 rounded-md" /> </p>
+              <p>Account Number: <input type="text" defaultValue={payment.accountNumber} className="border border-gray-500 p-3 rounded-md" /> </p>
+              <p>CVV: <input type="text" defaultValue={payment.cvv} /> </p>
               <div className="flex space-x-4 mt-6">
                 <button
                   className="bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600"
@@ -75,10 +75,12 @@ const PaymentMethod = () => {
                 </button>
               </div>
             </div>
-          ))
-        )}
+          )
+        }
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 

@@ -12,12 +12,12 @@ const Home = () => {
     <>
       <Navbar />
       <section className="bg-black text-white">
-        <div className="bg-linear-to-r from-blue-700 to-violet-700 py-30 px-20 mt-10 justify-between md:flex space-x-20">
+        <div className="bg-linear-to-r from-blue-700 to-violet-700 py-30 md:px-20 px-10 mt-10 justify-around md:flex space-y-10">
           <div className="space-y-6 mt-6">
-            <h1 className="text-7xl text-white font-bold font-sans">
+            <h1 className="md:text-7xl text-5xl text-white font-bold font-sans">
               Discover the Latest Tech
             </h1>
-            <p className="text-2xl text-white/70">
+            <p className="md:text-2xl text-white/70">
               Premium laptops, smartphones and accessories at unbeatable prices
             </p>
             <div className="flex space-x-3 font-sans">
@@ -26,7 +26,7 @@ const Home = () => {
                   Shop Now
                 </button>
               </Link>
-              <Link>
+              <Link to={"about"}>
                 <button className="bg-transparent hover:bg-white hover:text-blue-700 py-3 px-6 text-white border-2 border-white rounded-lg cursor-pointer">
                   Learn More
                 </button>
@@ -43,8 +43,8 @@ const Home = () => {
         </div>
         <div className="py-20 px-10">
           <h2 className="text-4xl font-bold text-center">Shop by Category</h2>
-          <div className="my-20 flex justify-center space-x-6 space-y-6">
-            <div className="rounded-lg shadow-md">
+          <div className="my-20 md:flex justify-center space-x-6 space-y-6">
+            <div className="rounded-lg shadow-lg bg-stone-900 hover:scale-102">
               <img
                 src={Laptop}
                 alt="laptop"
@@ -62,11 +62,11 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <div className="rounded-lg shadow-md">
+            <div className="rounded-lg shadow-md bg-stone-900 hover:scale-102">
               <img
                 src={Phone}
                 alt="smartphones"
-                className="rounded-lg hover:scale-102 w-full h-100"
+                className="rounded-lg w-full h-100"
               />
               <div className="p-6">
                 <h3 className="text-2xl font-bold mb-2">Smartphones</h3>
@@ -80,11 +80,11 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <div className="rounded-lg shadow-md">
+            <div className="rounded-lg shadow-md bg-stone-900 hover:scale-102">
               <img
                 src={Accessories}
                 alt="accessories"
-                className="rounded-lg hover:scale-102 w-full h-100"
+                className="rounded-lg w-full h-100"
               />
               <div className="p-6">
                 <h3 className="text-2xl font-bold mb-2">Accessories</h3>

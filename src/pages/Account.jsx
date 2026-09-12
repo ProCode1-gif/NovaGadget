@@ -24,11 +24,11 @@ const Account = () => {
   return (
     <>
       <Navbar />
-      <section className="bg-black min-h-screen py-40 px-40 text-white">
+      <section className="bg-black min-h-screen md:py-40 py-30 md:px-40 px-5 text-white grid-cols-1">
         <h2 className="text-4xl font-bold">My Account</h2>
-        <div className="md:flex space-x-6 space-y-6 my-12">
+        <div className="md:flex grid space-x-6 space-y-6 my-12">
           <div className="space-y-10">
-            <div className="h-60 w-full md:w-60 bg-gray-600 shadow-lg rounded-2xl">
+            <div className="min-h-60 w-full md:w-60 bg-gray-600 shadow-lg rounded-2xl">
               <ul className="p-6">
                 {links.map((link) => {
                   const slug = link.toLocaleLowerCase().replace(/\s+/g, "-");
@@ -51,7 +51,7 @@ const Account = () => {
             </div>
           </div>
           <div className="space-y-6">
-            <div className="bg-gray-600 h-60 md:w-220 rounded-lg shadow-lg p-6">
+            <div className="bg-gray-600 minh-60 md:w-220 rounded-lg shadow-lg p-6">
               <div className="flex justify-between">
                 <h2 className="text-lg font-bold">Order #12345</h2>
                 <p className="bg-green-200 text-green-500 px-2 rounded-full">
@@ -80,7 +80,7 @@ const Account = () => {
                 </button>
               </div>
             </div>
-            <div className="bg-gray-600 h-60 md:w-220 rounded-lg shadow-lg p-6">
+            <div className="bg-gray-600 min-h-60 md:w-220 rounded-lg shadow-lg p-6">
               <div className="flex justify-between">
                 <h2 className="text-lg font-bold">Order #12346</h2>
                 <p className="bg-yellow-200 text-yellow-500 px-2 rounded-full">
@@ -109,7 +109,7 @@ const Account = () => {
                 </button>
               </div>
             </div>
-            <div className="bg-gray-600 h-60 md:w-220 rounded-lg shadow-lg p-6">
+            <div className="bg-gray-600 min-h-60 md:w-220 rounded-lg shadow-lg p-6">
               <div className="flex justify-between">
                 <h2 className="text-lg font-bold">Order #12347</h2>
                 <p className="bg-red-200 text-red-500 px-2 rounded-full">

@@ -104,14 +104,14 @@ const Admin = () => {
   return (
     <>
       <Navbar />
-      <section className="bg-black flex mt-15 space-x-6">
+      <section className="bg-black flex mt-10 space-x-6 text-white">
         <AdminSideBar />
         <div className="py-6 space-y-6 w-screen">
-          <h2 className="text-center text-5xl font-extrabold">
+          <h2 className="text-center md:text-5xl text-3xl font-extrabold text-white">
             Dashboard Overview
           </h2>
-          <div className="md:flex space-x-6 mt-10">
-            <div className="bg-gray-600 w-[23%] p-6 rounded-lg shadow">
+          <div className="md:flex space-y-6 space-x-6 mt-10">
+            <div className="bg-gray-600 md:w-[23%] p-6 rounded-lg shadow">
               <div className="flex justify-between space-y-4">
                 <span className="bg-blue-100 text-blue-600 font-bold text-2xl p-2 rounded-lg">
                   <Banknote/>
@@ -123,7 +123,7 @@ const Admin = () => {
               <p className="text-sm text-black">Total Revenue</p>
               <p className="text-2xl font-bold mt-4">{totalRevenue}</p>
             </div>
-            <div className="bg-gray-600 w-[23%] p-6 rounded-lg shadow">
+            <div className="bg-gray-600 md:w-[23%] p-6 rounded-lg shadow">
               <div className="flex justify-between space-y-4">
                 <span className="bg-green-100 text-green-600 font-bold text-2xl p-2 rounded-lg">
                   <ShoppingCart/>
@@ -135,7 +135,7 @@ const Admin = () => {
               <p className="text-sm text-black">Total Orders</p>
               <p className="text-2xl font-bold mt-4">{totalOrders}</p>
             </div>
-            <div className="bg-gray-600 w-[23%] p-6 rounded-lg shadow">
+            <div className="bg-gray-600 md:w-[23%] p-6 rounded-lg shadow">
               <div className="flex justify-between space-y-4">
                 <span className="bg-purple-100 text-purple-600 font-bold text-2xl p-2 rounded-lg">
                   <Users/>
@@ -147,7 +147,7 @@ const Admin = () => {
               <p className="text-sm text-black">Total Customers</p>
               <p className="text-2xl font-bold mt-4">{totalCustomer}</p>
             </div>
-            <div className="bg-gray-600 w-[23%] p-6 rounded-lg shadow">
+            <div className="bg-gray-600 md:w-[23%] p-6 rounded-lg shadow">
               <div className="flex justify-between space-y-4">
                 <span className="bg-orange-100 text-orange-600 font-bold text-2xl p-2 rounded-lg">
                   <Package/>
@@ -161,11 +161,11 @@ const Admin = () => {
             </div>
           </div>
           <div className="md:flex space-x-6 space-y-6">
-            <div className="bg-gray-600 p-4 w-[48%] h-100 rounded-lg shadow">
+            <div className="bg-gray-600 p-4 md:w-[48%] h-100 rounded-lg shadow">
               <h4 className="font-bold text-2xl">Revenue Overview</h4>
               <Line data={line} />
             </div>
-            <div className="bg-gray-600 p-4 w-[48%] h-100 rounded-lg shadow">
+            <div className="bg-gray-600 p-4 md:w-[48%] h-100 rounded-lg shadow">
               <h4 className="font-bold text-2xl">Sales by Category</h4>
               <Doughnut data={doghnut} />
             </div>

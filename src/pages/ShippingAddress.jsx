@@ -2,6 +2,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const ShippingAddress = () => {
   const [address, setAddress] = useState({});
@@ -33,21 +35,23 @@ const ShippingAddress = () => {
   });
 
   return (
-    <div className="bg-black min-h-screen py-20 px-40 text-white">
-      <h2 className="text-4xl font-bold text-center">Shipping Address</h2>
+    <>
+    <Navbar />
+    <div className="bg-black min-h-screen py-20 px-5">
+      <h2 className="text-4xl font-bold text-center text-white">Shipping Address</h2>
       <div className="flex flex-col space-y-4 mt-20">
         {address.length === 0 ? (
           <p className="text-center">No shipping address found.</p>
         ) : (
-          <div>
-            <p>Phone Number: <input type="text" defaultValue={address?.phoneNumber} /> </p>
-            <p>country: <input type="text" defaultValue={address?.country} /> </p>
-            <p>state: <input type="text" defaultValue={address?.state} /> </p>
-            <p>city: <input type="text" defaultValue={address?.city} /> </p>
-            <p>street: <input type="text" defaultValue={address?.street} /> </p>
-            <p>portalCode: <input type="text" defaultValue={address?.portalCode} /> </p>
-            <p>landmark: <input type="text" defaultValue={address?.landmark} /> </p>
-            <p>addressType: <input type="text" defaultValue={address?.addressType} /> </p>
+          <div className="bg-white w-xl p-5 space-y-6">
+            <p>Phone Number: <input type="text" defaultValue={address?.phoneNumber} className="border border-gray-500 p-3 rounded-md" /> </p>
+            <p>country: <input type="text" defaultValue={address?.country} className="border border-gray-500 p-3 rounded-md" /> </p>
+            <p>state: <input type="text" defaultValue={address?.state} className="border border-gray-500 p-3 rounded-md" /> </p>
+            <p>city: <input type="text" defaultValue={address?.city} className="border border-gray-500 p-3 rounded-md" /> </p>
+            <p>street: <input type="text" defaultValue={address?.street} className="border border-gray-500 p-3 rounded-md" /> </p>
+            <p>portalCode: <input type="text" defaultValue={address?.portalCode} className="border border-gray-500 p-3 rounded-md" /> </p>
+            <p>landmark: <input type="text" defaultValue={address?.landmark} className="border border-gray-500 p-3 rounded-md" /> </p>
+            <p>addressType: <input type="text" defaultValue={address?.addressType} className="border border-gray-500 p-3 rounded-md" /> </p>
             <div className="flex space-x-4 mt-6">
             <button
             type="submit"
@@ -68,6 +72,8 @@ const ShippingAddress = () => {
         )}
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 

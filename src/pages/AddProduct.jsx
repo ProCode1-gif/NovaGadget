@@ -55,6 +55,7 @@ const initialValues = {
 };
 
 const validationSchema = Yup.object({
+  image: Yup.mixed().required("Product image is required"),
   name: Yup.string().required("Product name is required"),
   brand: Yup.string().required("Brand is required"),
   category: Yup.string().required("Category is required"),
@@ -82,7 +83,7 @@ const AddProduct = () => {
         formData.append(key, values[key]);
       });
 
-      await axios.post(
+      const res = await axios.post(
         "https://novagadget-server.onrender.com/admin/addProduct",
         formData,
         {
@@ -92,7 +93,7 @@ const AddProduct = () => {
         }
       );
 
-      toast.success("Product added successfully");
+      toast.success(res.data.message);
       resetForm();
     } catch (err) {
       toast.error(err.response?.data?.message || "Failed to add product");
@@ -104,11 +105,11 @@ const AddProduct = () => {
 
       <ToastContainer />
 
-      <div className="bg-black shadow-lg rounded-lg p-6 w-full max-w-xl">
+      <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-xl">
 
-        <h1 className="text-3xl font-bold text-center mb-6">
+        <h2 className="md:text-7xl text-4xl font-bold text-center md:mb-10 mb-6">
           Add Product
-        </h1>
+        </h2>
 
         <Formik
           initialValues={initialValues}

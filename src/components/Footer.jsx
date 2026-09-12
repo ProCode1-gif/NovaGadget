@@ -5,7 +5,7 @@ import { FaInstagram, FaFacebook, FaTwitter } from 'react-icons/fa';
 const Footer = () => {
   return (
     <footer className="bg-gray-800 py-15 md:px-20 px-10 bottom-0">
-      <div className="md:flex flex justify-between space-x-10 mr-20">
+      <div className="md:flex flex-2 justify-between space-x-10 mr-20 space-y-6">
         <div className="space-y-6">
           <h2 className="text-2xl text-white font-bold">NovaGadget</h2>
           <p className="text-lg text-gray-400">
@@ -16,27 +16,13 @@ const Footer = () => {
           <h3 className="text-lg text-white font-bold">Shop</h3>
           <ul className="mt-6 space-y-2">
             <li>
-              <Link to={'/shop/laptops'} className="text-lg text-gray-400">Laptop</Link>
+              <p className="text-lg text-gray-400">Laptop</p>
             </li>
             <li>
-              <Link to={'/shop/smartphones'} className="text-lg text-gray-400">Smartphones</Link>
+              <p className="text-lg text-gray-400">Smartphones</p>
             </li>
             <li>
-              <Link to={'/shop/accessories'} className="text-lg text-gray-400">Accessories</Link>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <h3 className="text-lg text-white font-bold">Support</h3>
-          <ul className="mt-6 space-y-2">
-            <li>
-              <Link to={"/contact"} className="text-lg text-gray-400">Contact Us</Link>
-            </li>
-            <li>
-              <Link to={"/shippingAddress"} className="text-lg text-gray-400">Shippng Info</Link>
-            </li>
-            <li>
-              <Link to={"/return"} className="text-lg text-gray-400">Returns</Link>
+              <p className="text-lg text-gray-400">Accessories</p>
             </li>
           </ul>
         </div>

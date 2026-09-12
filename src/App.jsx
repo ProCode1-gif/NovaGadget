@@ -16,6 +16,10 @@ import Cart from "./pages/Cart";
 import Orders from "./pages/Orders";
 import AdminProducts from "./pages/AdminProducts";
 import AccountSettting from "./pages/AccountSettting";
+import About from "./pages/About";
+// import Contact from "./pages/Contact";
+// import Shipping from "./pages/Shipping";
+// import Return from "./pages/Return";
 
 const App = () => {
   return (
@@ -25,6 +29,10 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/shop" element={<Shop />} />
+        {/* <Route path="/contact" element={<Contact />} /> */}
+        {/* <Route path="/shipping" element={<Shipping />} />
+        <Route path="/return" element={<Return />} /> */}
+        <Route path="/about" element={<About />} />
         <Route path="/user/account" element={<Account />} />
         <Route path="/user/account-setting" element={<AccountSettting />} />
         <Route path="/user/cart" element={<Cart />} />

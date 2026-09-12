@@ -48,42 +48,39 @@ const Cart = () => {
             {carts.map((cart) => (
               <div
                 className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-5 flex-col md:flex-row gap-5 min-h overflow-y-auto"             >
-                <div className="w-full max-w-4xl rounded-2xl bg-white p-6 shadow-lg" onClick={(e) => e.stopPropagation()}>
+                <div className="w-full max-w-4xl rounded-2xl bg-white p-6 shadow-lg">
                   <div className="flex flex-col md:flex-row gap-5">
                     <div
                       className="flex flex-1 items-center justify-center"
-                      onClick={(e) => e.stopPropagation()}
                     >
                       <img
-                        src={cart.imageUrl}
-                        alt={cart.name}
+                        src={cart.productIds.imageUrl}
+                        alt={cart.productIds.name}
                         className="mx-auto h-64 w-full object-contain"
                       />
                     </div>
 
                     <div className="flex-1">
                       <h2 className="mt-4 text-2xl font-bold">
-                        {cart.name}
+                        {cart.productIds.name}
                       </h2>
 
                       <h2 className="mt-4 text-2xl font-bold">
-                        {cart.brand}
+                        {cart.productIds.brand}
                       </h2>
 
                       <h2 className="mt-4 text-2xl font-bold">
-                        {cart.category}
+                        {cart.productIds.category}
                       </h2>
-
-                      <p className="text-gray-500">{cart.brand}</p>
 
                       <p className="mt-3 text-gray-600">
-                        {cart.description}
+                        {cart.productIds.description}
                       </p>
 
                       <div className="mt-5">
                         <h3 className="text-lg font-bold">Features:</h3>
                         <ul className="mt-2 list-disc list-inside pl-5 text-gray-600">
-                          {cart.features?.map((feature, index) => (
+                          {cart.productIds.features?.map((feature, index) => (
                             <li key={feature._id || index}>
                               <strong>{feature.key}</strong>: {feature.value}
                             </li>
@@ -93,7 +90,7 @@ const Cart = () => {
                     </div>
 
                     <p className="mt-4 text-xl font-bold">
-                      ₦{cart.price.toLocaleString()}
+                      ₦{cart.productIds.price.toLocaleString()}
                     </p>
                   </div>
 
@@ -122,7 +119,7 @@ const Cart = () => {
                   </div>
 
                   <p className="mt-5 text-xl font-bold">
-                    Total: ₦{(cart.price * count).toLocaleString()}
+                    Total: ₦{(cart.productIds.price * count).toLocaleString()}
                   </p>
                 </div>
               </div>

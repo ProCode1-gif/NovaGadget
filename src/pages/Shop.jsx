@@ -15,12 +15,16 @@ const Products = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const [allProducts, addToCart] = await Promise.all([
+        const [getProduct, addToCart] = await Promise.allSettled([
           axios.get("https://novagadget-server.onrender.com/user/shop"),
-          axios.get("https://novagadget-server.onrender.com/user/addToCart")
+          axios.post("https://novagadget-server.onrender.com/user/addToCart", {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            }
+          })
         ]);
 
-        setProducts(allProducts.data.products);
+        setProducts(getProduct.data.products);
         setCartCount(addToCart.data.cart);
       } catch (error) {
         console.error(
@@ -117,7 +121,7 @@ const Products = () => {
           <p className="text-center text-gray-500">No products found</p>
         ) : (
           <>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {products.map((product) => (
                 <ProductCard
                   key={product._id}

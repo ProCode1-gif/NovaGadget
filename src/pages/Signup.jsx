@@ -2,6 +2,7 @@ import axios from "axios";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash, FaCheck, FaTimes } from "react-icons/fa";
 import { useState } from "react";
@@ -82,18 +83,10 @@ const Signup = () => {
       if (token) {
         localStorage.setItem("token", token);
       }
-
       toast.success(res.data.message);
-
+      
       resetForm();
-      toast.success(
-        "Account created successfully! Redirecting to Sign In page...",
-      );
-
-      if (res.data.message === "Already have an account") {
-        navigate("/signin");
-      }
-
+      
       navigate("/signin");
     } catch (err) {
       toast.error(err.response?.data?.message || "Something went wrong");
