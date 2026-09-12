@@ -37,73 +37,55 @@ const Products = () => {
     getProducts();
   });
 
-  // useEffect(() => {
-  //   const socket = new WebSocket("ws://localhost:2574");
+  useEffect(() => {
+    const socket = new WebSocket("ws://localhost:2574");
 
-  //   socket.onopen = () => {
-  //     console.log("Connected to WebSocket");
-  //   };
+    socket.onopen = () => {
+      console.log("Connected to WebSocket");
+    };
 
-  //   socket.onmessage = (event) => {
-  //     try {
-  //       const data = JSON.parse(event.data);
+    socket.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
 
-  //       console.log("Received from WebSocket:", data);
+        console.log("Received from WebSocket:", data);
 
-  //       if (data.type === "PRODUCT_ADDED") {
-  //         setProducts((prevProducts) => {
-  //           const alreadyExists = prevProducts.some(
-  //             (product) =>
-  //               product._id === data.product._id
-  //           );
+        if (data.type === "PRODUCT_ADDED") {
+          setProducts((prevProducts) => {
+            const alreadyExists = prevProducts.some(
+              (product) =>
+                product._id === data.product._id
+            );
 
-  //           if (alreadyExists) {
-  //             return prevProducts;
-  //           }
+            if (alreadyExists) {
+              return prevProducts;
+            }
 
-  //           return [data.product, ...prevProducts];
-  //         });
-  //       }
+            return [data.product, ...prevProducts];
+          });
+        }
+      } catch (error) {
+        console.error(
+          "Error processing WebSocket message:",
+          error
+        );
+      }
+    };
 
-  //       // if (data.type === "PRODUCT_DELETED") {
-  //       //   setProducts((prevProducts) =>
-  //       //     prevProducts.filter(
-  //       //       (product) => product._id !== data.productId
-  //       //     )
-  //       //   );
-  //       // }
+    socket.onerror = (error) => {
+      console.error("WebSocket error:", error);
+    };
 
-  //       // if (data.type === "PRODUCT_UPDATED") {
-  //       //   setProducts((prevProducts) =>
-  //       //     prevProducts.map((product) =>
-  //       //       product._id === data.product._id
-  //       //         ? data.product
-  //       //         : product
-  //       //     )
-  //       //   );
-  //       // }
-  //     } catch (error) {
-  //       console.error(
-  //         "Error processing WebSocket message:",
-  //         error
-  //       );
-  //     }
-  //   };
+    socket.onclose = () => {
+      console.log("WebSocket disconnected");
+    };
 
-  //   socket.onerror = (error) => {
-  //     console.error("WebSocket error:", error);
-  //   };
-
-  //   socket.onclose = () => {
-  //     console.log("WebSocket disconnected");
-  //   };
-
-  //   return () => {
-  //     if (socket.readyState === WebSocket.OPEN || socket.readyState === WebSocket.CONNECTING) {
-  //     socket.close();
-  //   }
-  //   };
-  // });
+    return () => {
+      if (socket.readyState === WebSocket.OPEN || socket.readyState === WebSocket.CONNECTING) {
+      socket.close();
+    }
+    };
+  });
 
   return (
     <>
