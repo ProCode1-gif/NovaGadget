@@ -11,7 +11,7 @@ const ProductCard = ({
   category,
   stock,
   features,
-  onClick
+  onClick,
 }) => {
   const navigate = useNavigate();
 
@@ -23,7 +23,10 @@ const ProductCard = ({
     }
 
     try {
-      const order = await axios.post("https://novagadget-server.onrender.com/user/placeOrder", product);
+      const order = await axios.post(
+        "https://novagadget-server.onrender.com/user/placeOrder",
+        product,
+      );
       return order.data.order;
     } catch (error) {
       return error;
@@ -31,7 +34,10 @@ const ProductCard = ({
   };
 
   return (
-    <div className="bg-white/60 rounded-lg shadow-md m-3 hover:scale-103 transition-transform duration-300 space-y-3 cursor-pointer" onClick={onClick}>
+    <div
+      className="bg-white/60 rounded-lg shadow-md m-3 hover:scale-103 transition-transform duration-300 space-y-3 cursor-pointer"
+      onClick={onClick}
+    >
       <img
         src={imageUrl}
         alt={name}
@@ -57,13 +63,12 @@ const ProductCard = ({
           ))}
         </ul>
         <div>
-          
-        <button
-          className="bg-indigo-500 text-white w-full rounded py-3 font-bold hover:bg-indigo-600"
-          onClick={() => placeOrder}
-        >
-          Place Order
-        </button>
+          <button
+            className="bg-indigo-500 text-white w-full rounded py-3 font-bold hover:bg-indigo-600"
+            onClick={() => placeOrder}
+          >
+            Place Order
+          </button>
         </div>
       </div>
     </div>
