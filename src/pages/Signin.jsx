@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate, Link } from "react-router-dom";
 import { FaEye, FaEyeSlash, FaCheck, FaTimes } from "react-icons/fa";
@@ -46,7 +46,10 @@ const Signin = () => {
 
   const handleSignin = async (values, { resetForm }) => {
     try {
-      const res = await axios.post("https://novagadget-server.onrender.com/user/signin", values);
+      const res = await axios.post(
+        "https://novagadget-server.onrender.com/user/signin",
+        values,
+      );
 
       const token = res.data.token;
 
@@ -57,23 +60,25 @@ const Signin = () => {
       toast.success(res.data.message);
 
       resetForm();
-      
-      navigate("/");
+
+      setTimeout(() => {
+        navigate("/");
+      }, 3000)
     } catch (err) {
       const msg = err.response?.data?.message;
 
       toast.error(msg || "Something went wrong");
-      
+
       if (msg === "Signin failed") {
-        navigate("/signup");
+        setTimeout(() => {
+          navigate("/signup");
+        }, 3000)
       }
     }
   };
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-black p-5 text-white">
-      <ToastContainer />
-
       <div className="p-8 rounded-lg bg-stone-900 shadow-md w-full max-w-lg">
         <h1 className="text-3xl font-bold text-center">Sign In</h1>
 
@@ -220,7 +225,10 @@ const Signin = () => {
 
                 <p className="text-center">
                   Don‘t have an account?
-                  <Link to="/signup" className="text-blue-600 ml-2 cursor-pointer">
+                  <Link
+                    to="/signup"
+                    className="text-blue-600 ml-2 cursor-pointer"
+                  >
                     Sign Up
                   </Link>
                 </p>

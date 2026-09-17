@@ -30,7 +30,7 @@ const Navbar = () => {
     <nav className="top-0 w-full z-50 bg-gray-800 flex fixed justify-around align-middle py-3 shadow-lg text-white">
       <div className="flex justify-between space-x-3">
         <Link to={"/"}>
-          <h1 className="text-2xl text-blue-700 font-bold">NovaGadget</h1>
+        <img src="/favicon.png" alt="" width={30} height={20} className="absolute"/>
         </Link>
       </div>
 

@@ -17,6 +17,7 @@ import Orders from "./pages/Orders";
 import AdminProducts from "./pages/AdminProducts";
 import AccountSettting from "./pages/AccountSettting";
 import About from "./pages/About";
+import { ToastContainer } from "react-toastify";
 // import Contact from "./pages/Contact";
 // import Shipping from "./pages/Shipping";
 // import Return from "./pages/Return";
@@ -46,6 +47,7 @@ const App = () => {
         <Route path="/admin/customersOrder" element={<Orders />} />
         <Route path="/admin/product" element={<AdminProducts />} />
       </Routes>
+      <ToastContainer autoClose={3000} />
     </>
   );
 };

@@ -5,10 +5,10 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
 const Customers = () => {
-  const [credentials, setCredentials] = useState([]);
+  const [customers, setCustomers] = useState([]);
   
   useEffect(() => {
-  const getCredentials = async () => {
+  const getCustomers = async () => {
     try {
       const token = localStorage.getItem("token");
 
@@ -25,14 +25,14 @@ const Customers = () => {
         }
       );
 
-      setCredentials(res.data.customers);
+      setCustomers(res.data.customers);
     } catch (error) {
       console.log(error);
       toast.error(error.response?.data?.message || "Something went wrong");
     }
   };
 
-  getCredentials();
+  getCustomers();
 }, []);
 
   return (
@@ -52,9 +52,9 @@ const Customers = () => {
           </tr>
         </thead>
         <tbody>
-          {credentials.map((credential, i) => {
+          {customers.map((customer, i) => {
             const { fullName, email, phoneNumber } =
-              credential;
+              customer;
             return (
               <tr>
                 <td className="border border-slate-500 p-2">{i + 1}</td>
