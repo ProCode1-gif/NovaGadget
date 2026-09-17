@@ -15,14 +15,12 @@ const Products = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await axios.get("https://novagadget-server.onrender.com/user/shop");
-        const addToCart = await axios.post("https://novagadget-server.onrender.com/user/addToCart", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          }
-        });
+        const [shop, addToCart] = await Promise.all([
+          axios.get("https://novagadget-server.onrender.com/user/shop"),
+          axios.post("https://novagadget-server.onrender.com/user/addToCart"),
+        ]);
 
-        setProducts(res?.data?.products);
+        setProducts(shop?.data?.products);
         setCartCount(addToCart?.data?.cart);
       } catch (error) {
         console.error(

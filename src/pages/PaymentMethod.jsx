@@ -23,8 +23,8 @@ const PaymentMethod = () => {
             axios.get(
               "https://novagadget-server.onrender.com/user/paymentMethod",
             ),
-            axios.put(
-              "https://novagadget-server.onrender.com/user/paymentMethod",
+            axios.patch(
+              "https://novagadget-server.onrender.com/user/addPaymentMethod",
             ),
             axios.post(
               "https://novagadget-server.onrender.com/user/addPaymentMethod",

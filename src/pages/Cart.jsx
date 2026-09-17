@@ -9,6 +9,7 @@ import ProductSkeleton from "../components/ProductSkeleton";
 
 const Cart = () => {
   const [carts, setCarts] = useState([])
+  const [order, setOrder] = useState([])
   const [loading, setLoading] = useState(false)
   const [count, setCount] = useState(1)
 
@@ -19,9 +20,13 @@ const Cart = () => {
         if (!token) {
           toast.error('Token not provided')
         }
-        const url = "https://novagadget-server.onrender.com/user/myCart";
-        const res = await axios.get(url);
-        setCarts(res.data)
+        const [myCart, placeOrder] = await Promise.all([
+          axios.get("https://novagadget-server.onrender.com/user/myCart"),
+          axios.get("https://novagadget-server.onrender.com/user/placeOrder"),
+        ]);
+
+        setCarts(myCart.data)
+        setOrder(placeOrder.data)
       } catch (error) {
         return error;
       } finally {
@@ -121,6 +126,7 @@ const Cart = () => {
                   <p className="mt-5 text-xl font-bold">
                     Total: ₦{(cart.productIds.price * count).toLocaleString()}
                   </p>
+                  <button  className="bg-indigo-500 text-white w-full rounded py-3 font-bold hover:bg-indigo-600" onClick={order}>Place Order</button>
                 </div>
               </div>
             ))}

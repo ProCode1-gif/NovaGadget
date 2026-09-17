@@ -8,6 +8,7 @@ import Footer from "../components/Footer";
 
 const AccountSettting = () => {
   const [user, setUser] = useState();
+  const [updateProfile, setUpdateProfile] = useState()
 
   useEffect(() => {
     const getUser = async () => {
@@ -18,40 +19,18 @@ const AccountSettting = () => {
           return;
         }
 
-        const res = await axios.get("https://novagadget-server.onrender.com/user/profile", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setUser(res.data);
+        const [getProfile, updateProfile] = await Promise.all([
+          axios.get("https://novagadget-server.onrender.com/user/profile"),
+          axios.patch("https://novagadget-server.onrender.com/user/profile"),
+        ]);
+        setUser(getProfile.data);
+        setUpdateProfile(updateProfile.data);
       } catch (error) {
         return error;
       }
     };
     getUser();
   }, []);
-
-  const updateUser = async () => {
-  try {
-    const token = localStorage.getItem("token");
-
-    const res = await axios.put(
-      "https://novagadget-server.onrender.com/user/profile",
-      user,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    toast.success("Profile updated");
-
-    setUser(res.data.user);
-  } catch (error) {
-    toast.error(error.response?.data?.message);
-  }
-};
 
   return (
     <>
@@ -63,7 +42,7 @@ const AccountSettting = () => {
         <p>Password: <input className="border border-gray-500 p-3 rounded-md" value={user?.password} /></p>
         <p>Email: <input className="border border-gray-500 p-3 rounded-md" value={user?.email} /></p>
         <p>Phone Number: <input className="border border-gray-500 p-3 rounded-md" value={user?.phoneNumber} /></p>
-        <button className="bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600" onClick={updateUser}>
+        <button className="bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600" onClick={updateProfile}>
           Save Changes
         </button>
       </div>

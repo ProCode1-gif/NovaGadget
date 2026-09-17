@@ -20,7 +20,7 @@ const ShippingAddress = () => {
 
         const [getAddress, updateAddress, addAddress] = await Promise.all([
           axios.get("https://novagadget-server.onrender.com/user/address"),
-          axios.put("https://novagadget-server.onrender.com/user/address"),
+          axios.patch("https://novagadget-server.onrender.com/user/address"),
           axios.post("https://novagadget-server.onrender.com/user/addAddress"),
         ]);
         setAddress(getAddress.data.address);
