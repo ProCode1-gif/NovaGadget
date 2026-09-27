@@ -86,6 +86,7 @@ const Signup = () => {
       if (token) {
         localStorage.setItem("token", token);
       }
+
       toast.success(res.data?.message);
 
       resetForm();
@@ -94,7 +95,7 @@ const Signup = () => {
         navigate("/signin");
       }, 3000)
     } catch (err) {
-      toast.error(err.res.data?.message || "Something went wrong");
+      toast.error(err.response?.data?.message || "Something went wrong")
     }
   };
 

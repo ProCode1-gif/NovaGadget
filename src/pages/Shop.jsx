@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ProductSkeleton from "../components/ProductSkeleton";
+// import { useQuery } from "@tanstack/react-query";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -51,8 +52,7 @@ const Products = () => {
         if (data.type === "PRODUCT_ADDED") {
           setProducts((prevProducts) => {
             const alreadyExists = prevProducts.some(
-              (product) =>
-                product._id === data.product._id
+              (product) => product._id === data.product._id,
             );
 
             if (alreadyExists) {
@@ -63,10 +63,7 @@ const Products = () => {
           });
         }
       } catch (error) {
-        console.error(
-          "Error processing WebSocket message:",
-          error
-        );
+        console.error("Error processing WebSocket message:", error);
       }
     };
 
@@ -79,9 +76,12 @@ const Products = () => {
     };
 
     return () => {
-      if (socket.readyState === WebSocket.OPEN || socket.readyState === WebSocket.CONNECTING) {
-      socket.close();
-    }
+      if (
+        socket.readyState === WebSocket.OPEN ||
+        socket.readyState === WebSocket.CONNECTING
+      ) {
+        socket.close();
+      }
     };
   });
 
@@ -122,7 +122,10 @@ const Products = () => {
                 className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-5 flex-col md:flex-row gap-5 min-h overflow-y-auto"
                 onClick={() => setSelectedProduct(null)}
               >
-                <div className="w-full max-w-4xl rounded-2xl bg-white p-6 shadow-lg" onClick={(e) => e.stopPropagation()}>
+                <div
+                  className="w-full max-w-4xl rounded-2xl bg-white p-6 shadow-lg"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <div className="flex flex-col md:flex-row gap-5">
                     <div
                       className="flex flex-1 items-center justify-center"
@@ -173,7 +176,7 @@ const Products = () => {
 
                   <div className="mt-5 flex items-center gap-5">
                     <button
-                    type="button"
+                      type="button"
                       onClick={() => {
                         setCount((prev) => Math.max(1, prev - 1));
                       }}
@@ -199,7 +202,11 @@ const Products = () => {
                     Total: ₦{(selectedProduct.price * count).toLocaleString()}
                   </p>
 
-                  <button type="button" className="mt-5 w-full rounded-lg bg-blue-600 py-3 text-white cursor-pointer hover:bg-blue-700 transition-colors" onClick={() => cartCount}>
+                  <button
+                    type="button"
+                    className="mt-5 w-full rounded-lg bg-blue-600 py-3 text-white cursor-pointer hover:bg-blue-700 transition-colors"
+                    onClick={() => cartCount}
+                  >
                     Add to Cart
                   </button>
 
