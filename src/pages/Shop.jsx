@@ -4,40 +4,30 @@ import Footer from "../components/Footer";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ProductSkeleton from "../components/ProductSkeleton";
-// import { useQuery } from "@tanstack/react-query";
+import AddToCart from "../components/AddToCart";
+import { useQuery } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 const Products = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [count, setCount] = useState(1);
-  const [cartCount, setCartCount] = useState(1);
-
-  useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const [shop, addToCart] = await Promise.all([
-          axios.get("https://novagadget-server.onrender.com/user/shop"),
-          axios.post("https://novagadget-server.onrender.com/user/addToCart"),
-        ]);
-
-        setProducts(shop?.data?.products);
-        setCartCount(addToCart?.data?.cart);
-      } catch (error) {
-        console.error(
-          "Error fetching products:",
-          error.response?.data || error.message,
-        );
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getProducts();
+  const [product, setProduct] = useState(null);
+  
+  const getProducts = async () => {
+    const res = await axios.get(
+      "https://novagadget-server.onrender.com/user/shop",
+    );
+    return res.data;
+  };
+  
+  const [data, isLoading, error] = useQuery({
+    queryKey: ["product"],
+    queryFn: getProducts,
+    staleTime: 3000,
   });
-
+  
   useEffect(() => {
     const socket = new WebSocket("ws://localhost:2574");
+    if (!product) return;
 
     socket.onopen = () => {
       console.log("Connected to WebSocket");
@@ -49,8 +39,9 @@ const Products = () => {
 
         console.log("Received from WebSocket:", data);
 
+
         if (data.type === "PRODUCT_ADDED") {
-          setProducts((prevProducts) => {
+          setProduct((prevProducts) => {
             const alreadyExists = prevProducts.some(
               (product) => product._id === data.product._id,
             );
@@ -85,22 +76,24 @@ const Products = () => {
     };
   });
 
+  if (error) return toast.error(error.response?.data?.message);
+
   return (
     <>
       <Navbar />
       <main className="bg-black min-h-screen px-5 py-20">
-        {loading ? (
+        {isLoading ? (
           <div className="products-grid">
             {Array.from({ length: 8 }).map((_, index) => (
               <ProductSkeleton key={index} />
             ))}
           </div>
-        ) : products.length === 0 ? (
+        ) : data.length === 0 ? (
           <p className="text-center text-gray-500">No products found</p>
         ) : (
           <>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {products.map((product) => (
+              {data.map((product) => (
                 <ProductCard
                   key={product._id}
                   imageUrl={product.imageUrl}
@@ -110,7 +103,6 @@ const Products = () => {
                   price={product.price}
                   onClick={() => {
                     setSelectedProduct(product);
-                    setCount(1);
                   }}
                   className="cursor-pointer"
                 />
@@ -122,101 +114,18 @@ const Products = () => {
                 className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-5 flex-col md:flex-row gap-5 min-h overflow-y-auto"
                 onClick={() => setSelectedProduct(null)}
               >
-                <div
-                  className="w-full max-w-4xl rounded-2xl bg-white p-6 shadow-lg"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <div className="flex flex-col md:flex-row gap-5">
-                    <div
-                      className="flex flex-1 items-center justify-center"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <img
-                        src={selectedProduct.imageUrl}
-                        alt={selectedProduct.name}
-                        className="mx-auto h-64 w-full object-contain"
-                      />
-                    </div>
-
-                    <div className="flex-1">
-                      <h2 className="mt-4 text-2xl font-bold">
-                        {selectedProduct.name}
-                      </h2>
-
-                      <h2 className="mt-4 text-2xl font-bold">
-                        {selectedProduct.brand}
-                      </h2>
-
-                      <h2 className="mt-4 text-2xl font-bold">
-                        {selectedProduct.category}
-                      </h2>
-
-                      <p className="text-gray-500">{selectedProduct.brand}</p>
-
-                      <p className="mt-3 text-gray-600">
-                        {selectedProduct.description}
-                      </p>
-
-                      <div className="mt-5">
-                        <h3 className="text-lg font-bold">Features:</h3>
-                        <ul className="mt-2 list-disc list-inside pl-5 text-gray-600">
-                          {selectedProduct.features?.map((feature, index) => (
-                            <li key={feature._id || index}>
-                              <strong>{feature.key}</strong>: {feature.value}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-
-                    <p className="mt-4 text-xl font-bold">
-                      ₦{selectedProduct.price.toLocaleString()}
-                    </p>
-                  </div>
-
-                  <div className="mt-5 flex items-center gap-5">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setCount((prev) => Math.max(1, prev - 1));
-                      }}
-                      className="rounded-lg bg-gray-200 px-5 py-2 text-xl cursor-pointer"
-                    >
-                      -
-                    </button>
-
-                    <span className="text-xl font-semibold">{count}</span>
-
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setCount((prev) => prev + 1);
-                      }}
-                      className="rounded-lg bg-gray-200 px-5 py-2 text-xl cursor-pointer"
-                    >
-                      +
-                    </button>
-                  </div>
-
-                  <p className="mt-5 text-xl font-bold">
-                    Total: ₦{(selectedProduct.price * count).toLocaleString()}
-                  </p>
-
-                  <button
-                    type="button"
-                    className="mt-5 w-full rounded-lg bg-blue-600 py-3 text-white cursor-pointer hover:bg-blue-700 transition-colors"
-                    onClick={() => cartCount}
-                  >
-                    Add to Cart
-                  </button>
-
-                  <button
-                    onClick={() => setSelectedProduct(null)}
-                    className="mt-3 w-full rounded-lg bg-gray-200 py-3 text-gray-700 cursor-pointer"
-                  >
-                    Close
-                  </button>
-                </div>
+                <AddToCart
+                  key={selectedProduct._id}
+                  imageUrl={selectedProduct.imageUrl}
+                  name={selectedProduct.name}
+                  brand={selectedProduct.brand}
+                  cartegory={selectedProduct.cartegory}
+                  stock={selectedProduct.stock}
+                  description={selectedProduct.description}
+                  price={selectedProduct.price}
+                  features={selectedProduct.features}
+                />
+                <button onClick={() => setSelectedProduct(null)}>Close</button>
               </div>
             )}
           </>

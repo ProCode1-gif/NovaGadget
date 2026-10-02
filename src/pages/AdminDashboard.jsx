@@ -1,4 +1,3 @@
-// import React from 'react'
 import { Banknote, Package, ShoppingCart, Users } from "lucide-react";
 import AdminSideBar from "../components/AdminSideBar";
 import Footer from "../components/Footer";

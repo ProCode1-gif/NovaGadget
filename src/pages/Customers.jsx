@@ -1,15 +1,11 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import { useQuery } from "@tanstack/react-query";
 
 const Customers = () => {
-  const [customers, setCustomers] = useState([]);
-  
-  useEffect(() => {
   const getCustomers = async () => {
-    try {
       const token = localStorage.getItem("token");
 
       if (!token) {
@@ -18,22 +14,15 @@ const Customers = () => {
 
       const res = await axios.get(
         "https://novagadget-server.onrender.com/admin/customers",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
       );
-
-      setCustomers(res.data.customers);
-    } catch (error) {
-      console.log(error);
-      toast.error(error.response?.data?.message || "Something went wrong");
-    }
+      return res.data;
   };
 
-  getCustomers();
-}, []);
+  const [data, isLoading, error] = useQuery({ queryKey: ["customer"], queryFn: getCustomers })
+
+  if (isLoading) return 
+
+  if (error) return toast.error(error.response?.data?.messaage)
 
   return (
     <>
@@ -52,7 +41,7 @@ const Customers = () => {
           </tr>
         </thead>
         <tbody>
-          {customers.map((customer, i) => {
+          {data.map((customer, i) => {
             const { fullName, email, phoneNumber } =
               customer;
             return (

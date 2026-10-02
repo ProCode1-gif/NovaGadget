@@ -2,10 +2,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { User, ShoppingCart, Search, X } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const [search, setSearch] = useState("");
-  const [products, setProducts] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const token = localStorage.getItem("token");
 
@@ -14,23 +15,31 @@ const Navbar = () => {
 
     if (!search.trim()) return;
 
-    try {
-      const res = await axios.get(
-        `https://novagadget-server.onrender.com/user/search?search=${encodeURIComponent(search)}`,
-      );
-      setProducts(res.data.products);
-
-      if (!products) return;
-    } catch (error) {
-      console.error(error);
-    }
+    const res = await axios.get(
+      `https://novagadget-server.onrender.com/user/shop?search=${encodeURIComponent(search)}`,
+    );
+    return res.data.products;
   };
+
+  const { data, error } = useQuery({
+    queryKey: ["product", search],
+    queryFn: handleSearch,
+    enabled: search.length > 0,
+  });
+
+  if (error) return toast.error(error.response?.data?.message);
 
   return (
     <nav className="top-0 w-full z-50 bg-gray-800 flex fixed justify-around align-middle py-3 shadow-lg text-white">
       <div className="flex justify-between space-x-3">
         <Link to={"/"}>
-        <img src="/favicon.png" alt="" width={30} height={20} className="absolute"/>
+          <img
+            src="/favicon.png"
+            alt=""
+            width={30}
+            height={20}
+            className="absolute"
+          />
         </Link>
       </div>
 
@@ -44,7 +53,7 @@ const Navbar = () => {
         <input
           type="search"
           placeholder="Search electronics product"
-          value={search}
+          value={data}
           onChange={(e) => setSearch(e.target.value)}
           className="outline-none w-40 bg-gray-600 text-white"
         />
@@ -68,7 +77,7 @@ const Navbar = () => {
               <input
                 type="search"
                 placeholder="Search electronics product"
-                value={search}
+                value={data}
                 onChange={(e) => setSearch(e.target.value)}
                 className="outline-none w-40 bg-gray-600 text-white"
               />

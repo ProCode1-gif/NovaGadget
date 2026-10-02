@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { toast, ToastContainer } from "react-toastify";
 import { jwtDecode } from "jwt-decode";
+import { useMutation } from "@tanstack/react-query";
 
 const data = [
   {
@@ -67,7 +68,6 @@ const validationSchema = Yup.object({
 
 const AddProduct = () => {
   const handleSubmit = async (values, { resetForm }) => {
-    try {
       const token = localStorage.getItem("token");
       if (!token) {
         return toast.error("Token not provided");
@@ -86,19 +86,23 @@ const AddProduct = () => {
       const res = await axios.post(
         "https://novagadget-server.onrender.com/admin/addProduct",
         formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
       );
 
-      toast.success(res.data.message);
       resetForm();
-    } catch (err) {
-      toast.error(err.response?.data?.message || "Failed to add product");
+      return res.data;
+    };
+    
+    const addProductMutation = useMutation({
+      mutationFn: handleSubmit,
+      
+      onSuccess: (data) => {
+      toast.success(data.message);
+    },
+
+    onError: (error) => {
+      return toast.error(error.response?.data?.message)
     }
-  };
+  })
 
   return (
     <div className="min-h-screen bg-black flex justify-center items-center p-5">
@@ -114,7 +118,7 @@ const AddProduct = () => {
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={handleSubmit}
+          onSubmit={addProductMutation}
         >
           {({ setFieldValue }) => (
             <Form className="space-y-4">

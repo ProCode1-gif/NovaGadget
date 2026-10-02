@@ -1,9 +1,7 @@
-// import React from 'react'
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
-import ProductCard from "./components/ProductCard";
 import Shop from "./pages/Shop";
 import Account from "./pages/Account";
 import AddProduct from "./pages/AddProduct";
@@ -18,9 +16,8 @@ import AdminProducts from "./pages/AdminProducts";
 import AccountSettting from "./pages/AccountSettting";
 import About from "./pages/About";
 import { ToastContainer } from "react-toastify";
-// import Contact from "./pages/Contact";
-// import Shipping from "./pages/Shipping";
-// import Return from "./pages/Return";
+import "react-toastify/dist/ReactToastify.css"
+import ProductDetail from "./components/ProductDetail";
 
 const App = () => {
   return (
@@ -29,10 +26,8 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
-        <Route path="/shop" element={<Shop />} />
-        {/* <Route path="/contact" element={<Contact />} /> */}
-        {/* <Route path="/shipping" element={<Shipping />} />
-        <Route path="/return" element={<Return />} /> */}
+        <Route path="/shop" element={<Shop />} /> 
+        <Route path="/shop" element={<ProductDetail />} /> 
         <Route path="/about" element={<About />} />
         <Route path="/user/account" element={<Account />} />
         <Route path="/user/account-setting" element={<AccountSettting />} />
@@ -42,7 +37,6 @@ const App = () => {
         <Route path="/user/payment-method" element={<PaymentMethod />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/addProduct" element={<AddProduct />} />
-        <Route path="/productcard" element={<ProductCard />} />
         <Route path="/admin/customers" element={<Customers />} />
         <Route path="/admin/customersOrder" element={<Orders />} />
         <Route path="/admin/product" element={<AdminProducts />} />

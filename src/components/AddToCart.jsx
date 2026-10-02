@@ -1,50 +1,50 @@
+import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const ProductCard = ({
+const AddToCart = ({
   imageUrl,
-  description,
-  price,
   name,
   brand,
-  category,
+  cartegory,
   stock,
+  description,
+  price,
   features,
 }) => {
-  const navigate = useNavigate();
+  const addToCart = async () => {
+    const res = await axios.post(
+      "https://novagadget-server.onrender.com/user/addToCart",
+    );
 
-  const placeOrder = async (product) => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      toast.error("Token not provided");
-      navigate("/signup");
-    }
-
-    try {
-      const order = await axios.post(
-        "https://novagadget-server.onrender.com/user/placeOrder",
-        product,
-      );
-      return order.data.order;
-    } catch (error) {
-      return error;
-    }
+    return res.data;
   };
 
+  const addToCartMutation = useMutation({
+    mutationFn: addToCart,
+
+    onSuccess: (data) => {
+      return data;
+    },
+
+    onError: (error) => {
+      toast.error(error.response?.data?.message)
+    },
+  });
+  
   return (
     <div
       className="bg-white/60 rounded-lg shadow-md m-3 hover:scale-103 transition-transform duration-300 space-y-3 cursor-pointer"
-    >
+      >
       <img
         src={imageUrl}
-        alt={name}
+          alt={name}
         className="w-full h-48 object-cover rounded-md"
       />
       <div className="md:p-6 p-2 space-y-3">
         <h3 className="text-lg font-bold text-center">{name}</h3>
         <span className="text-lg font-semibold text-gray-600">{brand}</span>
-        <span className="text-lg font-semibold text-gray-600">{category}</span>
+        <span className="text-lg font-semibold text-gray-600">{cartegory}</span>
         <span className="text-lg font-semibold text-gray-600">{stock}</span>
         <p className="text-gray-600 mt-1 mb-3">{description}</p>
         <p className="text-black font-bold">
@@ -63,9 +63,9 @@ const ProductCard = ({
         <div>
           <button
             className="bg-indigo-500 text-white w-full rounded py-3 font-bold hover:bg-indigo-600"
-            onClick={() => placeOrder}
+            onClick={() => addToCartMutation}
           >
-            Place Order
+            Add To Cart
           </button>
         </div>
       </div>
@@ -73,4 +73,4 @@ const ProductCard = ({
   );
 };
 
-export default ProductCard;
+export default AddToCart;

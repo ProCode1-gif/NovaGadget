@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate, Link } from "react-router-dom";
 import { FaEye, FaEyeSlash, FaCheck, FaTimes } from "react-icons/fa";
 import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 
 const Signin = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -45,37 +46,37 @@ const Signin = () => {
   });
 
   const handleSignin = async (values, { resetForm }) => {
-    try {
-      const res = await axios.post(
-        "https://novagadget-server.onrender.com/user/signin",
-        values,
-      );
+    const res = await axios.post(
+      "https://novagadget-server.onrender.com/user/signin",
+      values,
+    );
 
-      const token = res.data.token;
+    const token = res.data.token;
 
-      if (token) {
-        localStorage.setItem("token", token);
-      }
-
-      toast.success(res.data.message);
-
-      resetForm();
-
-      setTimeout(() => {
-        navigate("/");
-      }, 3000)
-    } catch (err) {
-      const msg = err.response?.data?.message;
-
-      toast.error(msg || "Something went wrong");
-
-      if (msg === "Signin failed") {
-        setTimeout(() => {
-          navigate("/signup");
-        }, 3000)
-      }
+    if (token) {
+      localStorage.setItem("token", token);
     }
+
+    resetForm();
+
+    setTimeout(() => {
+      navigate("/");
+    }, 3000);
+
+    return res.data;
   };
+
+  const signinMutation = useMutation({
+    mutationFn: handleSignin,
+
+    onSuccess: (data) => {
+      return toast.success(data.message);
+    },
+
+    onError: (error) => {
+      toast.error(error.response?.dta?.messsage);
+    },
+  });
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-black p-5 text-white">
@@ -89,7 +90,7 @@ const Signin = () => {
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={handleSignin}
+          onSubmit={signinMutation}
         >
           {({ values }) => {
             const password = values.password;

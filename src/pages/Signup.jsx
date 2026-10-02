@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash, FaCheck, FaTimes } from "react-icons/fa";
 import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -75,29 +76,39 @@ const Signup = () => {
   });
 
   const handleSignup = async (values, { resetForm }) => {
-    try {
-      const res = await axios.post(
-        "https://novagadget-server.onrender.com/user/signup",
-        values,
-      );
+    const res = await axios.post(
+      "https://novagadget-server.onrender.com/user/signup",
+      values,
+    );
 
-      const token = res.data.token;
+    const token = res.data.token;
 
-      if (token) {
-        localStorage.setItem("token", token);
-      }
-
-      toast.success(res.data?.message);
-
-      resetForm();
-
-      setTimeout(() => {
-        navigate("/signin");
-      }, 3000)
-    } catch (err) {
-      toast.error(err.response?.data?.message || "Something went wrong")
+    if (token) {
+      localStorage.setItem("token", token);
     }
+
+    resetForm();
+
+    setTimeout(() => {
+      navigate("/signin");
+    }, 3000);
+
+    return res.data;
   };
+
+  const signupMutation = useMutation({
+    mutationFn: handleSignup,
+
+    onSuccess: (data) => {
+      return toast.success(data.message);
+    },
+
+    onError: (error) => {
+      return toast.error(
+        error.response?.data?.message || "Something went wrong",
+      );
+    },
+  });
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-black p-5 text-white">
@@ -109,7 +120,7 @@ const Signup = () => {
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={handleSignup}
+          onSubmit={signupMutation}
         >
           {({ values }) => {
             const password = values.password;
