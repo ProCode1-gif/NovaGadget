@@ -26,7 +26,7 @@ const Products = () => {
   });
   
   useEffect(() => {
-    const socket = new WebSocket("ws://localhost:2574");
+    const socket = new WebSocket("wss://novagadget-server.onrender.com");
     if (!product) return;
 
     socket.onopen = () => {
