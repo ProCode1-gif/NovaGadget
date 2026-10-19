@@ -18,7 +18,7 @@ const Customers = () => {
       return res.data;
   };
 
-  const [data, isLoading, error] = useQuery({ queryKey: ["customer"], queryFn: getCustomers })
+  const { data, isLoading, error } = useQuery({ queryKey: ["customer"], queryFn: getCustomers })
 
   if (isLoading) return 
 

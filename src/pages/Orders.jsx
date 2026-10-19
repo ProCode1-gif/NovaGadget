@@ -19,7 +19,7 @@ const Orders = () => {
         return res.data.orders;
   };
 
-  const [data, isLoading, error] = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["order"],
     queryFn: getOrder
   })

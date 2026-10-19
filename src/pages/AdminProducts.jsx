@@ -24,7 +24,7 @@ const AdminProducts = () => {
     return res.data;
   };
 
-  const [data, isLoading, error] = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["product"],
     queryFn: getAdminProducts,
   });

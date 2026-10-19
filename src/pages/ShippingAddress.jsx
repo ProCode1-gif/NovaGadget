@@ -16,7 +16,7 @@ const ShippingAddress = () => {
         return res.data;
     };
 
-    const [data, isLoading, error] = useQuery({ queryKey: ["address"], queryFn: getAddress })
+    const { data, isLoading, error } = useQuery({ queryKey: ["address"], queryFn: getAddress })
 
     const addAddress = async () => {
         const token = localStorage.getItem("token");

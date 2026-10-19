@@ -25,7 +25,7 @@ const PaymentMethod = () => {
     return res.data;
   };
 
-  const [data, isLoading, error] = useQuery({ queryKey: ["method"], queryFn: paymentMethod })
+  const { data, isLoading, error } = useQuery({ queryKey: ["method"], queryFn: paymentMethod })
 
   const addPaymentMethod = async () => {
     const token = localStorage.getItem("token");

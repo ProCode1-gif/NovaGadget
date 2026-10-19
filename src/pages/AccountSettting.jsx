@@ -16,9 +16,9 @@ const AccountSettting = () => {
       "https://novagadget-server.onrender.com/user/profile",
     );
     return res.data;
-  };
+  };  
 
-  const [data, isLoading, error] = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["user"],
     queryFn: getUser,
   });
@@ -38,6 +38,7 @@ const AccountSettting = () => {
 
   const updteUserMutation = useMutation({
     mutationFn: updateUser,
+    
     onSuccess: (data) => {
       return data;
     },

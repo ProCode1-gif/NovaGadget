@@ -19,7 +19,7 @@ const Products = () => {
     return res.data;
   };
   
-  const [data, isLoading, error] = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["product"],
     queryFn: getProducts,
     staleTime: 3000,

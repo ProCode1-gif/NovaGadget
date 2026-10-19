@@ -17,7 +17,7 @@ const Cart = () => {
     return res.data;
   };
 
-  const [data, isLoading, error] = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["cart"],
     queryFn: getCart,
   });
